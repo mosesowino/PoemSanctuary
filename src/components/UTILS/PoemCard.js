@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import { Favorite, FavoriteBorderOutlined } from '@mui/icons-material';
 import ShareIcon from '@mui/icons-material/Share';
-import { OpenInFull} from '@mui/icons-material';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Backdrop } from '@mui/material';
@@ -45,7 +44,7 @@ const PoemCard = (props) => {
   }
 
   const readMoreHandler = () =>{
-    setExpanded(!expanded)
+    setExpanded(!expanded);
   }
 
   return (
