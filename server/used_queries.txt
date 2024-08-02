@@ -1,0 +1,15 @@
+const create_table_users_query = `
+   CREATE TABLE users(
+    email VARCHAR(100) PRIMARY KEY,
+    username VARCHAR(100) not null
+)`;
+
+client.query(create_table_users_query,(err,res)=>{
+  if(err){
+    console.error(`error executing query, ${err.stack}`);
+  }
+  else{
+    console.log('table created successfully');
+  }
+  client.end();
+})

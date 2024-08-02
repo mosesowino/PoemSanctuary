@@ -52,19 +52,22 @@ const PoemCard = (props) => {
       <Backdrop
           sx={{ zIndex: 20, color: '#fff' }}
           open={expanded}
-          onClick={handleExpandClick}
+          onDoubleClick={handleExpandClick}
       />
 
 
       <Card
-        className='bg-background'
+        // className='bg-background'
+        className={`bg-red-200`}
         sx={{
-          maxWidth: expanded ? '80%' : 345,
+          maxWidth: expanded ? 'auto' : 'auto', //initially 345
+          maxHeight: expanded? '85%' :'auto',
+          minWidth: expanded ? 'auto':'none',
           zIndex: expanded ? 30 : 0,
           position: expanded ? 'fixed' : 'relative',
-          top: expanded ? '50%' : 'auto',
+          top: expanded ? '65%' : 'auto',
           left: expanded ? '50%' : 'auto',
-          transform: expanded ? 'translate(-50%, -50%)' : 'none',
+          transform: expanded ? 'translate(-50%, -65%)' : 'none',
           marginX: 'auto',
           padding: 2,
           boxShadow: 3,
@@ -90,18 +93,20 @@ const PoemCard = (props) => {
         title = {`${props.children[0]}`}
         subheader={`${new Date().toISOString().split('T')[0]}`}
       />
-      <CardMedia
+      {/* <CardMedia
         component="img"
         height="194"
         // image="/static/images/cards/paella.jpg"
         alt="random image"
-      />
+      /> */}
 
 
       <CardContent>
-        <Typography variant="body2" color="text.secondary" className='font-bold leading-6'>
-        {(props.children[1].length > 10 & !expanded)?props.children[1].substr(0,9):props.children[1]}
-        {(props.children[1].length > 10 & !expanded)?<Typography variant="body2" className='text-blue-700 inline cursor-pointer' onClick={readMoreHandler}> ....read more</Typography>:''}
+        <Typography variant="body2" className='font-bold leading-6'>
+          <pre>
+            {(props.children[1].length > 250 & !expanded)?props.children[1].substr(0,249):props.children[1]}
+            {(props.children[1].length > 250 & !expanded)?<Typography variant="body2" className='text-blue-700 inline cursor-pointer' onClick={readMoreHandler}> ....read more</Typography>:''}
+          </pre>
         </Typography>
       </CardContent>
 
