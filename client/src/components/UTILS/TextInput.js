@@ -26,6 +26,8 @@ const TextInput = (props) => {
   const[poemField, setPoemField] = React.useState('');
   const[completedInput, setCompletedInput] = React.useState(false)
   const[titleField, setTitleField] = React.useState('')
+  const[titleValue, setTitleValue] = React.useState('')
+  const[poemValue, setPoemValue] = React.useState('')
 
   
   const uploadHandler = () => {
@@ -34,6 +36,8 @@ const TextInput = (props) => {
       props.onSubmitPoem({title:titleField,poem:poemField})
       setCompletedInput(!completedInput)
       setPoemField('')
+      setPoemValue('')
+      setTitleValue('')
   }
   }
 
@@ -43,10 +47,12 @@ const TextInput = (props) => {
 
   const textAreaChangeHandler = (event) =>{
     setPoemField(event.target.value)
+    setPoemValue(event.target.value)
   }
 
   const titleChangeHandler = (event) =>{
     setTitleField(event.target.value)
+    setTitleValue(event.target.value)
   }
 
   React.useEffect(()=>{
@@ -69,13 +75,13 @@ const TextInput = (props) => {
         type='text'
         placeholder='poem title(optional)'
         className=' outline-none border-none focus:outline-none focus:border-none my-3'
-        // value={}
+        value={titleValue}
         onChange={titleChangeHandler}
         
       />
       <hr/>
       <CardContent>
-        <textarea rows={20} cols={30} placeholder='create Poem' className=' border-none outline-none focus:border-none focus:outline-none' onChange={textAreaChangeHandler}/>
+        <textarea rows={20} cols={30} placeholder='create Poem' className=' border-none outline-none focus:border-none focus:outline-none' value={poemValue} onChange={textAreaChangeHandler}/>
       </CardContent>
       <hr/>
       <CardActions disableSpacing className='text-blue-700'>
