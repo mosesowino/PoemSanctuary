@@ -101,9 +101,8 @@ const PoemCard = (props) => {
 
       <CardContent>
         <Typography variant="body2" color="text.secondary" className='font-bold leading-6'>
-        {(props.children[1].length > 10)?props.children[1].substr(0,9):props.children[1]}
+        {(props.children[1].length > 10 & !expanded)?props.children[1].substr(0,9):props.children[1]}
         {(props.children[1].length > 10 & !expanded)?<Typography variant="body2" className='text-blue-700 inline cursor-pointer' onClick={readMoreHandler}> ....read more</Typography>:''}
-        {expanded?props.children[1]:''}
         </Typography>
       </CardContent>
 
@@ -125,17 +124,6 @@ const PoemCard = (props) => {
           {expanded ? <CloseFullscreenIcon /> : ''}
         </ExpandMore>
       </CardActions>
-
-
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-
-        <CardContent>
-          <Typography paragraph>
-
-          </Typography>
-        </CardContent>
-
-      </Collapse>
 
     </Card>
     </>
