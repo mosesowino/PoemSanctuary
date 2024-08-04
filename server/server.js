@@ -1,6 +1,21 @@
-const express = require('express');
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
+require('dotenv').config();
 const cors = require('cors');
+const {Client} = require('pg')
+const express = require('express');
+
+
 const app = express();
+const secretKey = process.env.SECRET_KEY;
+const client = new Client({
+  user: 'psadmin',
+  host: 'localhost',
+  database: 'poemsanctuary',
+  password: '@1234',
+  port: 5432,
+})
+
 
 // Middleware to handle JSON payloads
 app.use(express.json());
@@ -12,6 +27,48 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+client.connect(err => {
+  if (err) {
+    console.error('Failed to connect to database:', err);
+    process.exit(1);
+  } else {
+    console.log('Connected to the database');
+  }
+});
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+
+    
+    // Check if user exists
+    const query = 'SELECT * FROM users WHERE email = $1';
+    const result = await client.query(query, [email]);
+
+    if (result.rows.length === 0) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const user = result.rows[0];
+
+    // Verify password
+    // const validPassword = await bcrypt.compare(password, user.password);
+    const validPassword = (password == user.password)
+
+    if (!validPassword) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    
+
+    // Create JWT token
+    const token = jwt.sign({ email: user.email }, secretKey, { expiresIn: '1h' });
+
+    return res.status(200).json({ token });
+  } catch (error) {
+    console.error('Error logging in:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 app.get('/', (req, res) => {

@@ -79,8 +79,8 @@ const register = (user_email,user_username, user_userpassword) =>{
   });
 }
 
-const user_email = 'lil.duck@example.com';//string
-const user_username = 'LilDuck';//string
-const user_userpassword = 'lilduck1';
+const user_email = 'user@2.com';//string
+const user_username = 'user2';//string
+const user_userpassword = 'user2';
 
 register(user_email, user_username,user_userpassword)

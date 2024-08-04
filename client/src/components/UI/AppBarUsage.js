@@ -13,11 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AutoStoriesIcon from '@mui/icons-material/Adb';
 import '../../App.css'
+import { Link } from 'react-router-dom';
 
 const pages = ['Poems', 'Featured', 'Create'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function AppBarUsage() {
+function AppBarUsage(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   
@@ -36,6 +37,10 @@ function AppBarUsage() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleMenuItemClick = (e) =>{
+    props.settingsItem(e.currentTarget.innerHTML)
+  }
 
   return (
     <AppBar position="sticky" className='bg-transparent text-black mix-blend-subtract'>
@@ -95,6 +100,7 @@ function AppBarUsage() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Link to={page === 'Poems' ? '/poems':''}>LinkToPoems</Link>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -156,7 +162,7 @@ function AppBarUsage() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography textAlign="center" onClick={handleMenuItemClick}>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>

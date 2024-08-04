@@ -17,6 +17,7 @@ import { Backdrop } from '@mui/material';
 
 
 
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -59,9 +60,9 @@ const PoemCard = (props) => {
         // className='bg-background'
         className={`bg-red-200`}
         sx={{
-          maxWidth: expanded ? 'auto' : 'auto', //initially 345
+          maxWidth: expanded ? 'auto' : 345, //initially 345
           maxHeight: expanded? '85%' :'auto',
-          minWidth: expanded ? 'auto':'none',
+          // minWidth: expanded ? 'auto':'fit-content',
           zIndex: expanded ? 30 : 0,
           position: expanded ? 'fixed' : 'relative',
           top: expanded ? '65%' : 'auto',
@@ -95,10 +96,10 @@ const PoemCard = (props) => {
 
 
       <CardContent>
-        <Typography variant="body2" className='font-bold leading-6'>
+        <Typography variant="body2" className='font-bold leading-6 break-words'>
           <pre>
             {(props.children[1].length > 250 & !expanded)?props.children[1].substr(0,249):props.children[1]}
-            {(props.children[1].length > 250 & !expanded)?<Typography variant="body2" className='text-blue-700 inline cursor-pointer' onClick={readMoreHandler}> ....read more</Typography>:''}
+            {(props.children[1].length > 250 & !expanded)?<Typography variant="body2" className='text-blue-700 inline cursor-pointer' onClick={readMoreHandler}> <br/>....read more</Typography>:''}
           </pre>
         </Typography>
       </CardContent>

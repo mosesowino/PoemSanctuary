@@ -1,10 +1,13 @@
 import AppBarUsage from "../components/UI/AppBarUsage";
 import LegendSection from "../components/UI/LegendSection";
 
-const LandingPage = () =>{
+const LandingPage = (props) =>{
+    const handleSettingsItem = (value) =>{
+        props.settingsItem(value)
+    }
     return(
         <>
-         <AppBarUsage/>
+         <AppBarUsage settingsItem={handleSettingsItem}/>
          <LegendSection/>
         </>
     );
