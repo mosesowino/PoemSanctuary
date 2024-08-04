@@ -14,7 +14,7 @@ import LandingPage from './pages/LandingPage';
 import UserInputPage from './pages/UserInputPage';
 import Login from './pages/Login';
 import NoPage from './pages/NoPage';
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 let poems = [
@@ -31,16 +31,20 @@ const App = () => {
   const[isAuthenticated, setIsAuthenticated] = useState(false);
 
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   const handleOnSentToApp = (value) =>{
     setPoem(
       (previous) => [...previous, value]
     );
     console.log(poem)
   }
-  useRef(()=>{
-    console.log("useref ==>",poem);
-    
-  },[])
+
 
   const handleAuth = (value) => {
     setIsAuthenticated(value)
@@ -48,7 +52,7 @@ const App = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token')
-    setIsAuthenticated(!isAuthenticated)
+    setIsAuthenticated(false)
   }
 
 
