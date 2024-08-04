@@ -97,10 +97,8 @@ const PoemCard = (props) => {
 
       <CardContent>
         <Typography variant="body2" className='font-bold leading-6 break-words'>
-          <pre>
             {(props.children[1].length > 250 & !expanded)?props.children[1].substr(0,249):props.children[1]}
-            {(props.children[1].length > 250 & !expanded)?<Typography variant="body2" className='text-blue-700 inline cursor-pointer' onClick={readMoreHandler}> <br/>....read more</Typography>:''}
-          </pre>
+            {(props.children[1].length > 250 & !expanded)?<Typography variant="body2" className='text-blue-700 inline cursor-pointer' onClick={readMoreHandler}>....read more</Typography>:''}
         </Typography>
       </CardContent>
 

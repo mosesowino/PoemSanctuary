@@ -14,7 +14,7 @@ import LandingPage from './pages/LandingPage';
 import UserInputPage from './pages/UserInputPage';
 import Login from './pages/Login';
 import NoPage from './pages/NoPage';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 
 let poems = [
@@ -30,13 +30,17 @@ const App = () => {
   const[poem, setPoem] = useState(poems);
   const[isAuthenticated, setIsAuthenticated] = useState(false);
 
-  
+
   const handleOnSentToApp = (value) =>{
     setPoem(
       (previous) => [...previous, value]
     );
     console.log(poem)
   }
+  useRef(()=>{
+    console.log("useref ==>",poem);
+    
+  },[])
 
   const handleAuth = (value) => {
     setIsAuthenticated(value)
@@ -82,9 +86,16 @@ const App = () => {
            path='/login'
            element={isAuthenticated?<Navigate to="/" replace/>:<Login setAuth={handleAuth}/>}
            />
-          <Route path='/' element={isAuthenticated ? <LandingPage settingsItem={handleSettingsItem}/>:<Navigate to="/login" replace/>} />
-          <Route path='/poems' element={<PoemsPage poemData={poem}/>}/>
-          <Route path='/input' element={<UserInputPage onSentToApp={handleOnSentToApp}/>}/>
+          <Route 
+            path='/' 
+            element={!isAuthenticated ? (<Navigate to="/login" replace/>):(
+            <>
+              <LandingPage settingsItem={handleSettingsItem}/>
+              <PoemsPage poemData={poem}/>
+              <UserInputPage onSentToApp={handleOnSentToApp}/>
+            </>
+            )} 
+          />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </div>

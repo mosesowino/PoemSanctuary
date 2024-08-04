@@ -100,8 +100,9 @@ function AppBarUsage(props) {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link to={page === 'Poems' ? '/poems':''}>LinkToPoems</Link>
-                  <Typography textAlign="center">{page}</Typography>
+                  {page === 'Poems' ? <><Link to="/poems">Go to Section 1</Link></>:''}
+                  
+                  {/* <Typography textAlign="center">{page}</Typography> */}
                 </MenuItem>
               ))}
             </Menu>
