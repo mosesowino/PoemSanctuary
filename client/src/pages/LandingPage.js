@@ -22,7 +22,6 @@ const LandingPage = (props) =>{
         if(value){
           legendRef.current.scrollIntoView({behavior:'smooth'})
          }
-        console.log(value)
     }
     return(
         <>

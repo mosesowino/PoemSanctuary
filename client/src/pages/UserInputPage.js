@@ -4,7 +4,6 @@ import MediaInput from "../components/UI/MediaInput";
 const UserInputPage = forwardRef((props,ref) =>{
 
   const handleSentToInputPage = (value) =>{
-    console.log(value)
     props.onSentToApp(value)
   }
 

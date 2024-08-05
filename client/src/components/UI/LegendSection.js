@@ -10,9 +10,9 @@ import { forwardRef, useEffect, useState } from 'react'
 import { ArrowForward } from '@mui/icons-material'
 
 // const dataApi = 'http://localhost:3001/'
+
 const LegendSection = forwardRef((props,ref) => {
-    console.log(ref)
-    const[data, setData] = useState();
+    const[aiData, setAiData] = useState();
     const[error, setError] =useState(null);
 
     // const handleExploreClick = () => {
@@ -40,10 +40,7 @@ const LegendSection = forwardRef((props,ref) => {
         const getPoem = async () =>{
             try{
                 const result = await fetchOpenAiPoems();
-                setData(...data,
-                    result
-                )
-                setData(result);
+                setAiData(result)
             }catch(err){
                 setError(err);
             }
@@ -52,6 +49,7 @@ const LegendSection = forwardRef((props,ref) => {
     },[]
 );
 
+    console.log("ai data ==>",aiData)
     const handleExploreClick = () =>{
         props.explore(true)
         props.create(false)
@@ -79,8 +77,6 @@ if(error)<div>Error-----{error.message}</div>
                     <Button variant="contained" className='mx-1' onClick={handleExploreClick}>
                         Explore
                     </Button>
-                    <div>{}</div>
-                    {/* <div>{error}</div> */}
                 </div>
         </Box>
     )

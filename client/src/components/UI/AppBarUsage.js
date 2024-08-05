@@ -11,7 +11,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { useState } from 'react';
 import '../../App.css'
+import { Backdrop } from '@mui/material';
+import LoginCard from '../UTILS/LoginCard';
+
+
+
+
 
 const pages = ['Poems', 'Featured', 'Create'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -19,6 +26,13 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const AppBarUsage = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+
+  const[loginClicked, setLoginClicked] = useState(false)
+
+  const handleLoginClicked = () =>{
+    setLoginClicked(!loginClicked);
+  }
   
 
   const handleOpenNavMenu = (event) => {
@@ -48,8 +62,25 @@ const AppBarUsage = (props) => {
     props.homeClicked(true)
   }
 
+
+  const handleLoginStatus = (value) =>{
+    if(value){
+      setLoginClicked(!loginClicked)
+    }
+  }
+
   return (
-    <AppBar position="sticky" className='bg-transparent text-black mix-blend-subtract'>
+    <>
+
+    <Backdrop
+      sx={{zIndex:20, color:'#fff'}}
+      open={loginClicked}
+      onClick={handleLoginClicked}
+    />
+
+  
+
+    <AppBar position="sticky" className='bg-transparent text-black'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -63,7 +94,7 @@ const AppBarUsage = (props) => {
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.1rem',
+              // letterSpacing: '.1rem',
               color: 'black',
               textDecoration: 'none',
                mixBlendMode: 'difference',
@@ -113,7 +144,6 @@ const AppBarUsage = (props) => {
             variant="h5"
             noWrap
             component="a"
-            // href="#app-bar"
             onClick={handleHomeClicked}
             sx={{
               mr: 2,
@@ -140,37 +170,51 @@ const AppBarUsage = (props) => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={localStorage.getItem('username').toUpperCase()} src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={handleSettingsItemClick}>{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            {
+             ( localStorage.getItem('token'))?
+             <>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt={localStorage.getItem('username').toUpperCase()} src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center" onClick={handleSettingsItemClick}>{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+             </>:
+             <>
+             <Button variant="outlined" onClick={handleLoginClicked}>
+               <Typography variant="p" className=' contrast-200'>sign in</Typography>
+             </Button>
+             </>
+         
+
+            }
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
+    {loginClicked? <LoginCard loginStatus={handleLoginStatus}/>:''}
+    </>
   );
 }
 export default AppBarUsage;
