@@ -44,13 +44,14 @@ const AppBarUsage = (props) => {
     props.menuItemClick(e.currentTarget.innerHTML)
   }
 
+  const handleHomeClicked = () =>{
+    props.homeClicked(true)
+  }
+
   return (
     <AppBar position="sticky" className='bg-transparent text-black mix-blend-subtract'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <AutoStoriesIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          {/* <img src={logo} alt='logo' sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} className='h-4 w-auto'/> */}
-
           <Typography
             className='logo'
             variant="h6"
@@ -112,7 +113,8 @@ const AppBarUsage = (props) => {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            // href="#app-bar"
+            onClick={handleHomeClicked}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },

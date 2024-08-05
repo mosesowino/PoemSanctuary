@@ -6,12 +6,12 @@ import fetchOpenAiPoems from '../../Services/ApiService'
 import Typography from '@mui/material/Typography'
 import { Box, Button } from '@mui/material'
 import Card from '../UTILS/Card'
-import { useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import { ArrowForward } from '@mui/icons-material'
 
 // const dataApi = 'http://localhost:3001/'
-const LegendSection = (props) => {
-
+const LegendSection = forwardRef((props,ref) => {
+    console.log(ref)
     const[data, setData] = useState();
     const[error, setError] =useState(null);
 
@@ -64,7 +64,7 @@ const LegendSection = (props) => {
 if(error)<div>Error-----{error.message}</div>
 
     return(
-        <Box className=" min-h-screen w-screen relative flex justify-center bg-primary z-10 -mt-20">
+        <Box ref={ref} className=" min-h-screen w-screen relative flex justify-center bg-primary z-10 -mt-20">
                 <Card className= 'h-auto w-auto absolute left-0 bottom-0 leading-relaxed p-1'>
                     <Typography variant="h5"  className=' font-bold text-secondary text-5xl'>
                         Inspiring<br/> Minds,<br/> One Poem<br/> At<br/> A <br/>Time
@@ -84,6 +84,6 @@ if(error)<div>Error-----{error.message}</div>
                 </div>
         </Box>
     )
-}
+})
 
 export default LegendSection

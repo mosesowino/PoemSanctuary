@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import AppBarUsage from "../components/UI/AppBarUsage";
 import LegendSection from "../components/UI/LegendSection";
 
@@ -15,10 +16,18 @@ const LandingPage = (props) =>{
     const handleMenuItemClick = (value) =>{
         props.menuItemClick(value);
     }
+
+    const legendRef = useRef(null);
+    const handleHomeClicked = (value) =>{
+        if(value){
+          legendRef.current.scrollIntoView({behavior:'smooth'})
+         }
+        console.log(value)
+    }
     return(
         <>
-         <AppBarUsage settingsItem={handleSettingsItem} menuItemClick={handleMenuItemClick}/>
-         <LegendSection create={handleCreate} explore={handleExplore}/>
+         <AppBarUsage settingsItem={handleSettingsItem} menuItemClick={handleMenuItemClick} homeClicked={handleHomeClicked}/>
+         <LegendSection create={handleCreate} explore={handleExplore} ref={legendRef}/>
         </>
     );
 }
