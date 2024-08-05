@@ -63,7 +63,7 @@ app.post('/login', async (req, res) => {
     // Create JWT token
     const token = jwt.sign({ email: user.email }, secretKey, { expiresIn: '1h' });
 
-    return res.status(200).json({ token });
+    return res.status(200).json({token:token, username:user.username });
   } catch (error) {
     console.error('Error logging in:', error);
     return res.status(500).json({ message: 'Internal server error' });

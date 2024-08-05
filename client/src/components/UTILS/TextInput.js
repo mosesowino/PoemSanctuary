@@ -32,7 +32,6 @@ const TextInput = (props) => {
   
   const uploadHandler = () => {
     if(poemField.length > 0){
-      console.log(`poemField ==> ${poemField}`)
       props.onSubmitPoem({title:titleField,poem:poemField})
       setCompletedInput(!completedInput)
       setPoemField('')

@@ -14,7 +14,7 @@ import LandingPage from './pages/LandingPage';
 import UserInputPage from './pages/UserInputPage';
 import Login from './pages/Login';
 import NoPage from './pages/NoPage';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
 let poems = [
@@ -52,6 +52,7 @@ const App = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('username')
     setIsAuthenticated(false)
   }
 
@@ -70,7 +71,6 @@ const App = () => {
 
 
   const handleSettingsItem = (value) =>{
-    console.log("settings value =>",value)
     if(value === 'Logout'){
       handleLogout();
     }else if(value === 'Dashboard'){
@@ -81,6 +81,34 @@ const App = () => {
       handleProfile()
     }
   }
+  
+
+  const exploreRef = useRef(null)
+  const createRef = useRef(null)
+  const handleExplore = (value) =>{
+    if(value){
+      exploreRef.current.scrollIntoView({behavior:'smooth'})
+    }
+  }
+  const handleCreate = (value) =>{
+    if(value){
+      createRef.current.scrollIntoView({behavior:'smooth'})
+    }
+  }
+
+  const handleMenuItemClick = (value) =>{
+    const values = ["Poems","Featured","Create"];
+    if(value){
+      if(value === values[0]){
+        handleExplore(true)
+      }else if(value === values[1]){
+        handleExplore(true)
+      }else{
+        handleCreate(true)
+      }
+    }
+  }
+
 
   return(
     <BrowserRouter>
@@ -94,9 +122,9 @@ const App = () => {
             path='/' 
             element={!isAuthenticated ? (<Navigate to="/login" replace/>):(
             <>
-              <LandingPage settingsItem={handleSettingsItem}/>
-              <PoemsPage poemData={poem}/>
-              <UserInputPage onSentToApp={handleOnSentToApp}/>
+              <LandingPage settingsItem={handleSettingsItem} explore={handleExplore} create={handleCreate} menuItemClick={handleMenuItemClick}/>
+              <PoemsPage poemData={poem} ref={exploreRef}/>
+              <UserInputPage onSentToApp={handleOnSentToApp} ref={createRef}/>
             </>
             )} 
           />

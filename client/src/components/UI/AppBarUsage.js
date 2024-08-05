@@ -11,9 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AutoStoriesIcon from '@mui/icons-material/Adb';
 import '../../App.css'
-import { Link } from 'react-router-dom';
 
 const pages = ['Poems', 'Featured', 'Create'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -38,8 +36,12 @@ const AppBarUsage = (props) => {
     setAnchorElUser(null);
   };
 
-  const handleMenuItemClick = (e) =>{
+  const handleSettingsItemClick = (e) =>{
     props.settingsItem(e.currentTarget.innerHTML)
+  }
+
+  const handleMenuItemClick = (e) =>{
+    props.menuItemClick(e.currentTarget.innerHTML)
   }
 
   return (
@@ -99,16 +101,13 @@ const AppBarUsage = (props) => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  {/* {page === 'Poems' ? <><Link to="/poems">Go to Section 1</Link></>:''} */}
-                  
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page} onClick={handleCloseNavMenu}>                  
+                  <Typography textAlign="center" onClick={handleMenuItemClick}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
-          {/* <AutoStoriesIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h5"
             noWrap
@@ -120,7 +119,6 @@ const AppBarUsage = (props) => {
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
-              // letterSpacing: {xs:'.2rem',md:'.3rem'},
               color: 'inherit',
               textDecoration: 'none',
             }}
@@ -134,7 +132,7 @@ const AppBarUsage = (props) => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
-                {page}
+                <Typography textAlign="center" onClick={handleMenuItemClick}>{page}</Typography>
               </Button>
             ))}
           </Box>
@@ -142,7 +140,7 @@ const AppBarUsage = (props) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={localStorage.getItem('username').toUpperCase()} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -163,7 +161,7 @@ const AppBarUsage = (props) => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={handleMenuItemClick}>{setting}</Typography>
+                  <Typography textAlign="center" onClick={handleSettingsItemClick}>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>

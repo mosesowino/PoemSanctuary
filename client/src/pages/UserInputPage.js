@@ -1,6 +1,7 @@
+import { forwardRef } from "react";
 import MediaInput from "../components/UI/MediaInput";
 
-const UserInputPage = (props) =>{
+const UserInputPage = forwardRef((props,ref) =>{
 
   const handleSentToInputPage = (value) =>{
     console.log(value)
@@ -9,9 +10,9 @@ const UserInputPage = (props) =>{
 
   return(
   <>
-    <MediaInput onSentToInputPage={handleSentToInputPage}/>
+    <MediaInput onSentToInputPage={handleSentToInputPage} ref={ref}/>
   </>
   );
-}
+})
 
 export default UserInputPage;

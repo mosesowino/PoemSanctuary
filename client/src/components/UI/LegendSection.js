@@ -10,9 +10,9 @@ import { useEffect, useState } from 'react'
 import { ArrowForward } from '@mui/icons-material'
 
 // const dataApi = 'http://localhost:3001/'
-const LegendSection = () => {
+const LegendSection = (props) => {
 
-    const[data, setData] = useState()
+    const[data, setData] = useState();
     const[error, setError] =useState(null);
 
     // const handleExploreClick = () => {
@@ -44,8 +44,6 @@ const LegendSection = () => {
                     result
                 )
                 setData(result);
-                console.log(result)
-                console.log(`data --->${data}`)
             }catch(err){
                 setError(err);
             }
@@ -53,6 +51,15 @@ const LegendSection = () => {
         getPoem()
     },[]
 );
+
+    const handleExploreClick = () =>{
+        props.explore(true)
+        props.create(false)
+    }
+    const handleCreateClick = () =>{
+        props.create(true)
+        props.explore(false)
+    }
 
 if(error)<div>Error-----{error.message}</div>
 
@@ -65,11 +72,11 @@ if(error)<div>Error-----{error.message}</div>
                 </Card>
 
                 <div className=' flex self-center'>
-                    <Button variant="outlined" className='mx-1 '>
+                    <Button variant="outlined" className='mx-1 ' onClick={handleCreateClick}>
                         Create
                         <ArrowForward/>
                     </Button>
-                    <Button variant="contained" className='mx-1'>
+                    <Button variant="contained" className='mx-1' onClick={handleExploreClick}>
                         Explore
                     </Button>
                     <div>{}</div>

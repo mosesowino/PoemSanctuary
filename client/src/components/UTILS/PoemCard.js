@@ -29,7 +29,6 @@ const ExpandMore = styled((props) => {
 }));
 
 const PoemCard = (props) => {
-  console.log(`console ${props.children}`)
   const [expanded, setExpanded] = React.useState(false);
   const [favorited, setFavorited] = React.useState(false);
 
