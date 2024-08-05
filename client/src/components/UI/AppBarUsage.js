@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 const pages = ['Poems', 'Featured', 'Create'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function AppBarUsage(props) {
+const AppBarUsage = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   
@@ -100,15 +100,15 @@ function AppBarUsage(props) {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  {page === 'Poems' ? <><Link to="/poems">Go to Section 1</Link></>:''}
+                  {/* {page === 'Poems' ? <><Link to="/poems">Go to Section 1</Link></>:''} */}
                   
-                  {/* <Typography textAlign="center">{page}</Typography> */}
+                  <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
-          <AutoStoriesIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          {/* <AutoStoriesIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h5"
             noWrap
@@ -120,12 +120,12 @@ function AppBarUsage(props) {
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              // letterSpacing: {xs:'.2rem',md:'.3rem'},
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            PoemSanctuary
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
