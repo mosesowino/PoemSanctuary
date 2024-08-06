@@ -49,7 +49,7 @@ const LoginCard = (props) =>{
             onChange={(e) => setPassword(e.target.value)}
             />
         </div>
-        <Button variant='outlined' type="submit" className='mb-1 mr-2 p-1'>Login</Button>
+        <Button variant='contained' type="submit" className='mb-1 mr-2 p-1'>Login</Button>
         <Typography variant="b" className=" mix-blend-difference">No account? <Typography variant="p" className="text-white">sign up </Typography></Typography>
         </form>
         </Card>
