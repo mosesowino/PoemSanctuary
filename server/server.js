@@ -71,6 +71,37 @@ app.post('/login', async (req, res) => {
 });
 
 
+
+app.post('/poems', async (req,res)=>{
+  const insertQuery = `
+  INSERT INTO poems (author, poemdata)
+  VALUES ($1, $2)
+  RETURNING *;
+`;
+
+try {
+  const{title, poem} = req.body;
+  const newPoem = {title, poem}
+  console.log("after removing ==",newPoem)
+  const result = await client.query(insertQuery, [req.body.author, newPoem]);
+  res.status(201).json({
+    message: 'Data inserted successfully',
+    data: result.rows[0],
+  });
+} catch (err) {
+  console.error('Error inserting data', err);
+  res.status(500).json({ error: 'Failed to insert data' });
+}
+
+
+});
+
+app.get("/servePoemData", async (req, res)=>{
+  res.json({data:"Initial poems being sent to app on initial mount"})
+})
+
+
+
 app.get('/', (req, res) => {
   res.json({ message: 'Hello from root' });
   console.log("Hello root");
@@ -79,7 +110,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   console.log(req.body);
   let poem_data = req.body;
-  res.json({ message: 'Data received' });
+  res.status(200).json({ message: 'Data received' });
 });
 
 app.listen(3001, () => {

@@ -1,5 +1,6 @@
 import { Button, Card, Typography } from "@mui/material";
 import axios from "axios";
+import { Cancel } from "@mui/icons-material";
 import { useState } from "react";
 
 
@@ -28,6 +29,7 @@ const LoginCard = (props) =>{
 
     return(
         <Card className=' w-max px-12 mx-auto self-center fixed bottom-1/2 z-30 backdrop-blur-md bg-black/10'>
+          <Cancel className="absolute right-1 top-1 text-red-600"/>
         <form onSubmit={handleLogin}>
         <div className=' my-4'>
             <label className='block'>Email:</label>

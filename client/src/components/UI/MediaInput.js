@@ -5,6 +5,7 @@ import { forwardRef } from 'react';
 const MediaInput = forwardRef((props,ref) =>{
     const handleOnSubmitPoem = (value) =>{
         props.onSentToInputPage(value)
+        console.log(value)
     }
 
 

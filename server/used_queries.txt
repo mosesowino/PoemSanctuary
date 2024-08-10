@@ -13,3 +13,28 @@ client.query(create_table_users_query,(err,res)=>{
   }
   client.end();
 })
+
+
+
+
+
+const createPoemsTable = async () => {
+  const createTableQuery = `
+  CREATE TABLE poems (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR(255),
+      author VARCHAR(255),
+      poemdata JSON,
+      FOREIGN KEY (email) REFERENCES users(email),
+      FOREIGN KEY (author) REFERENCES users(username)
+  );
+`;
+  try {
+      const res = await client.query(createTableQuery);
+      console.log('Table created successfully:', res);
+  } catch (err) {
+      console.error('Error creating table:', err);
+  } finally {
+      await client.end();
+  }
+};

@@ -13,7 +13,8 @@ import PoemsPage from './pages/PoemsPage';
 import LandingPage from './pages/LandingPage';
 import UserInputPage from './pages/UserInputPage';
 import NoPage from './pages/NoPage';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 
 
 let poems = [
@@ -24,16 +25,47 @@ let poems = [
   {title:"cloud", poem:"annies kits are out"},
 ]
 
+
 const App = () => {
   const[poem, setPoem] = useState(poems);
-
+  const[currentPoem, setCurrentPoem] = useState();
+  
+  useEffect(()=>{
+    const fetchDatabasePoems = async() =>{
+      try{
+        const result = await axios.get("http://localhost:3001/servePoemData");
+        console.log("original poem from db ===>",result.data)
+      }catch(err){
+        console.error("Error fetching poems from database",err);
+      }
+    }
+    fetchDatabasePoems();
+  },[])
   const handleOnSentToApp = (value) =>{
+    setCurrentPoem(value)
     setPoem(
       (previous) => [...previous, value]
     );
-    console.log(poem)
+    console.log(poem)    
   }
 
+  //send poem to server
+  useEffect(()=>{
+    const sendPoemToServer = async () =>{
+      try{
+        currentPoem.author = localStorage.getItem("username");
+        const response = await axios.post("http://localhost:3001/poems",currentPoem,{
+          headers:{
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log("Server response:", response.data);
+      }catch(err){
+        console.error("Error sending data to server ", err)
+      }
+    }
+    sendPoemToServer();
+  },[currentPoem])
 
 
   const handleLogout = () => {
@@ -94,6 +126,8 @@ const App = () => {
     }
   }
 
+  //fetch poems from database
+  
 
   return(
     <BrowserRouter>

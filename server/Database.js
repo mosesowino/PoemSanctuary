@@ -64,23 +64,29 @@ client.connect();
 
 
 
-const register = (user_email,user_username, user_userpassword) =>{
-  const insert_user_query = `
-  INSERT INTO users (email, username, password) VALUES ($1, $2, $3);
-  `;
-  client.query(insert_user_query,[user_email,user_username,user_userpassword],(err,res)=>{
-    if(err){
-      console.error(`error executing query, ${err.stack}`);
-    }
-    else{
-      console.log('user added successfully');
-    }
-    client.end();
-  });
-}
+// const register = (user_email,user_username, user_userpassword) =>{
+//   const insert_user_query = `
+//   INSERT INTO users (email, username, password) VALUES ($1, $2, $3);
+//   `;
+//   client.query(insert_user_query,[user_email,user_username,user_userpassword],(err,res)=>{
+//     if(err){
+//       console.error(`error executing query, ${err.stack}`);
+//     }
+//     else{
+//       console.log('user added successfully');
+//     }
+//     client.end();
+//   });
+// }
 
-const user_email = 'user@2.com';//string
-const user_username = 'user2';//string
-const user_userpassword = 'user2';
+// const user_email = 'user@2.com';//string
+// const user_username = 'user2';//string
+// const user_userpassword = 'user2';
 
-register(user_email, user_username,user_userpassword)
+// register(user_email, user_username,user_userpassword)
+
+
+
+
+createPoemsTable();
+

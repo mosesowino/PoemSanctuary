@@ -1,12 +1,30 @@
 import { Grid, Typography } from "@mui/material"
 import PoemCard from "../UTILS/PoemCard";
 import Card from "../UTILS/Card";
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useState } from "react";
+import fetchOpenAiPoems from "../../Services/ApiService";
+import HalfRating from "../UTILS/Rating";
 
 
 const PoemsSection = forwardRef((props, ref) =>{
+    const[poems, setPoems] = useState();
+    useEffect(()=>{
+        const fetchAiPoems = async() =>{
+        try{
+                const result = await fetchOpenAiPoems()
+                console.log("result is =>",result)
+                setPoems(result)
+            }catch(err) {
+                console.error("error fetching from openai: ",err)
+            }
+        }
+        fetchAiPoems()
+    },[])
+
+    console.log("poemsection =>", poems)
 
 
+    console.log(poems);
     return(
         <Grid ref={ref} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3, xl:3 }}  className=" w-screen min-h-screen mx-0 bg-secondary">
             <Grid item xs={11} sm={7} md={7} lg={8} xl={8}  className=" mx-auto mb-2 h-screen overflow-y-scroll">
@@ -30,8 +48,9 @@ const PoemsSection = forwardRef((props, ref) =>{
             <Grid item xs={11} sm={4} md={4} lg={3} xl={3}  className=" w-auto p-1 mx-auto h-fit mt-8 shadow-md blur-sm shadow-white">
                 <Typography variant="h5" color="white" className="Block mb-2 text-center font-bold ">Leaderboard</Typography>
                 {props.poemData.map((poem) => (
-                    <Card className="p-2 my-3 m-2 rounded-md text-black font-bold bg-white shadow-md shadow-black">
-                        {poem.title}
+                    <Card className="p-2 my-3 m-2 rounded-md text-black font-bold bg-white shadow-md shadow-black flex justify-between">
+                        <Typography variant="p">{poem.title}</Typography>
+                        <HalfRating/>
                     </Card>
                 ))}
             </Grid>
