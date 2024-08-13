@@ -97,7 +97,15 @@ try {
 });
 
 app.get("/servePoemData", async (req, res)=>{
-  res.json({data:"Initial poems being sent to app on initial mount"})
+  const getPoemsRecordsQuery = 'SELECT * from poems';
+  try{
+    const result = await client.query(getPoemsRecordsQuery);
+    console.log("resultt ===> ", result.rows)
+    const results = result.rows;
+    res.status(201).json({results})
+  }catch(err){
+    console.error("Error fetching from database ::: ", err);
+  }
 })
 
 

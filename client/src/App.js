@@ -31,16 +31,28 @@ const App = () => {
   const[currentPoem, setCurrentPoem] = useState();
   
   useEffect(()=>{
-    const fetchDatabasePoems = async() =>{
+    const fetchServerPoems = async() =>{
       try{
         const result = await axios.get("http://localhost:3001/servePoemData");
-        console.log("original poem from db ===>",result.data)
+        // console.log("original poem from db ===>",result.data.results)
+        // setPoem(result.data.results)
+        let fetchedPoems = await result.data.results;
+        let newArr = [];
+        console.log(result.data.results)
+        fetchedPoems.map((x)=>{
+          return newArr.push(x.poemdata)
+        })
+        console.log(await newArr);
+        setPoem((prev)=>
+          [...prev, ...newArr]
+        )
       }catch(err){
-        console.error("Error fetching poems from database",err);
+        console.error("Error fetching poems from database ===>",err);
       }
     }
-    fetchDatabasePoems();
+    fetchServerPoems();
   },[])
+
   const handleOnSentToApp = (value) =>{
     setCurrentPoem(value)
     setPoem(
