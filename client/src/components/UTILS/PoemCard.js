@@ -59,16 +59,17 @@ const PoemCard = (props) => {
         // className='bg-background'
         className={`bg-red-200`}
         sx={{
-          maxWidth: expanded ? 'auto' : 345, //initially 345
+          maxWidth: expanded ? 'auto' : 'auto', //initially 345
           maxHeight: expanded? '85%' :'auto',
-          // minWidth: expanded ? 'auto':'fit-content',
+          minWidth: expanded ? 'auto':'fit-content',
           zIndex: expanded ? 30 : 0,
           position: expanded ? 'fixed' : 'relative',
           top: expanded ? '65%' : 'auto',
           left: expanded ? '50%' : 'auto',
           transform: expanded ? 'translate(-50%, -65%)' : 'none',
           marginX: 'auto',
-          padding: 2,
+          padding: 1,
+          paddingX: 0,
           boxShadow: 3,
           // backgroundColor: '#f0f0f0',
           transition: 'max-width 0.9s ease-in-out, z-index 0.9s ease-in-out, top 0.9s ease-in-out, left 0.9s ease-in-out, transform 0.9s ease-in-out',
@@ -95,16 +96,19 @@ const PoemCard = (props) => {
 
 
       <CardContent>
-        <Typography variant="body2" className='font-bold leading-6 break-words'>
-            {(props.children[1].length > 250 & !expanded)?props.children[1].substr(0,249):props.children[1]}
-            {(props.children[1].length > 250 & !expanded)?<Typography variant="body2" className='text-blue-700 inline cursor-pointer' onClick={readMoreHandler}>....read more</Typography>:''}
-        </Typography>
+        {/* <Typography variant="body2" className='font-bold leading-6 break-words'> */}
+          <pre>
+            {(props.children[1].length > 250 && !expanded)?props.children[1].substr(0,249):props.children[1]}
+            {(props.children[1].length > 250 && !expanded)?<Typography variant="body2" className='text-blue-700 inline cursor-pointer' onClick={readMoreHandler}>....read more</Typography>:''}
+          </pre>
+        {/* </Typography> */}
       </CardContent>
 
 
       <CardActions disableSpacing className='text-blue-700'>
         <IconButton aria-label="add to favorites" onClick={handleFavoriteClick} className={`${favorited ? 'text-red-500': 'text-blue-700'}`} >
           {favorited? <Favorite/> :<FavoriteBorderOutlined/>}
+          <Typography>332</Typography>
         </IconButton>
         <IconButton aria-label="share" className='text-blue-700'>
           {/* <ShareIcon /> */}

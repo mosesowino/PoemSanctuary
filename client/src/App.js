@@ -17,28 +17,16 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 
-let poems = [
-  // {title:"run", 
-  //   poem:"joe runs all over the place,\n its cold"
-  // },
-  // {title:"Over us", poem:"amy went missing today"},
-  // {title:"cloud", poem:"annies kits are out"},
-]
-let newArr = []
-
-
 const App = () => {
-  const[poem, setPoem] = useState(poems);
+  const[poem, setPoem] = useState([]);
   const[currentPoem, setCurrentPoem] = useState();
   
   useEffect(()=>{
     const fetchServerPoems = async() =>{
       try{
         const result = await axios.get("http://localhost:3001/servePoemData");
-        // console.log("original poem from db ===>",result.data.results)
-        // setPoem(result.data.results)
         let fetchedPoems = await result.data.results;
-        // let newArr = [];
+        let newArr = []
         console.log(result.data.results)
         fetchedPoems.map((x)=>{
           return newArr.push(x.poemdata)
@@ -63,7 +51,6 @@ const App = () => {
     console.log(poem)    
   }
 
-  //send poem to server
   useEffect(()=>{
     const sendPoemToServer = async () =>{
       try{
@@ -138,10 +125,7 @@ const App = () => {
         handleCreate(true)
       }
     }
-  }
-
-  //fetch poems from database
-  
+  }  
 
   return(
     <BrowserRouter>

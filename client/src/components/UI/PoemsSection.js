@@ -29,10 +29,10 @@ const PoemsSection = forwardRef((props, ref) =>{
         <Grid ref={ref} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3, xl:3 }}  className=" w-screen min-h-screen mx-0 bg-secondary">
             <Grid item xs={11} sm={7} md={8} lg={9} xl={8}  className=" mx-auto mb-2 h-screen overflow-y-scroll">
                 <Typography variant="h5"  className="text-center font-bold">Poems</Typography>
-                <Grid container spacing={2} className=" mt-8 h-fit -z-10">
+                <Grid container spacing={2} className=" mt-8 h-fit -z-10 ">
                     {
                         props.poemData.map((poem)=>(
-                            <Grid item xs={12} sm={12} md={6} lg={4} xl={4} style={{minHeight:"150px"}}>
+                            <Grid item xs={12} sm={12} md={6} lg={4} xl={4} style={{minHeight:"150px"}} className=" break-words">
                                 <PoemCard>
                                     {[poem.title,poem.poem]}
                                 </PoemCard>
@@ -45,9 +45,9 @@ const PoemsSection = forwardRef((props, ref) =>{
             </Grid>
 
             <Grid item xs={11} sm={4} md={3} lg={2} xl={3}  className=" w-auto p-1 mx-auto h-fit mt-8 border-2 border-lg bg-red-200 rounded-md">
-                <Typography variant="h5" color="white" className="Block mb-2 text-center font-bold ">Leaderboard</Typography>
+                <Typography variant="h5" color="white" className="Block mb-2 text-center font-bold text-black">Leaderboard</Typography>
                 {props.poemData.map((poem) => (
-                    <Card className="p-2 my-3 m-2 rounded-md text-black font-bold bg-white flex justify-between">
+                    <Card className="px-2 py-1 my-3 m-2 rounded-md text-black bg-white flex justify-between">
                         <Typography variant="p">{poem.title}</Typography>
                         <HalfRating/>
                     </Card>
