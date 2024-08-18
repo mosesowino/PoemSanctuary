@@ -85,7 +85,7 @@ const PoemCard = (props) => {
         }
         action={
           <IconButton aria-label="settings" className='text-blue-700'>
-            <MoreVertIcon />
+            {/* <MoreVertIcon /> */}
           </IconButton>
         }
         // title="Shrimp and Chorizo Paella"
@@ -107,7 +107,7 @@ const PoemCard = (props) => {
           {favorited? <Favorite/> :<FavoriteBorderOutlined/>}
         </IconButton>
         <IconButton aria-label="share" className='text-blue-700'>
-          <ShareIcon />
+          {/* <ShareIcon /> */}
         </IconButton>
         <ExpandMore
           expand={expanded}

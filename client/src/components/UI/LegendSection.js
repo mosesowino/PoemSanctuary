@@ -1,8 +1,6 @@
 import '@fontsource/roboto'
 
-// import Card from "../UTILS/Card"
 import fetchOpenAiPoems from '../../Services/ApiService'
-// import axios from 'axios'
 import Typography from '@mui/material/Typography'
 import { Box, Button } from '@mui/material'
 import Card from '../UTILS/Card'
@@ -65,7 +63,7 @@ if(error)<div>Error-----{error.message}</div>
         <Box ref={ref} className=" min-h-screen w-screen relative flex justify-center bg-primary z-10 -mt-20">
                 <Card className= 'h-auto w-auto absolute left-0 bottom-0 leading-relaxed p-1'>
                     <Typography variant="h5"  className=' font-bold text-secondary text-5xl'>
-                        Inspiring<br/> Minds,<br/> One Poem<br/> At<br/> A <br/>Time
+                        Inspiring<br/> Minds<br/> One Poem<br/> At<br/> A <br/>Time
                     </Typography>
                 </Card>
 

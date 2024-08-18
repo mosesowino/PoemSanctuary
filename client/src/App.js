@@ -18,12 +18,13 @@ import axios from 'axios';
 
 
 let poems = [
-  {title:"run", 
-    poem:"joe runs all over the place,\n its cold"
-  },
-  {title:"Over us", poem:"amy went missing today"},
-  {title:"cloud", poem:"annies kits are out"},
+  // {title:"run", 
+  //   poem:"joe runs all over the place,\n its cold"
+  // },
+  // {title:"Over us", poem:"amy went missing today"},
+  // {title:"cloud", poem:"annies kits are out"},
 ]
+let newArr = []
 
 
 const App = () => {
@@ -37,7 +38,7 @@ const App = () => {
         // console.log("original poem from db ===>",result.data.results)
         // setPoem(result.data.results)
         let fetchedPoems = await result.data.results;
-        let newArr = [];
+        // let newArr = [];
         console.log(result.data.results)
         fetchedPoems.map((x)=>{
           return newArr.push(x.poemdata)
@@ -46,12 +47,13 @@ const App = () => {
         setPoem((prev)=>
           [...prev, ...newArr]
         )
+        newArr = [];
       }catch(err){
         console.error("Error fetching poems from database ===>",err);
       }
     }
     fetchServerPoems();
-  },[])
+  },[currentPoem])
 
   const handleOnSentToApp = (value) =>{
     setCurrentPoem(value)
