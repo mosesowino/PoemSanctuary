@@ -7,6 +7,7 @@ import HalfRating from "../UTILS/Rating";
 
 
 const PoemsSection = forwardRef((props, ref) =>{
+    const[likes, setLikes] = useState(0)
     const[poems, setPoems] = useState();
     useEffect(()=>{
         const fetchAiPoems = async() =>{
@@ -20,9 +21,16 @@ const PoemsSection = forwardRef((props, ref) =>{
         }
         fetchAiPoems()
     },[])
+    // useEffect(()=>{
+    //     console.log("likes in useeffect",likes)
+    // },[likes])
 
     console.log("poemsection =>", poems)
 
+    const handleLikesCount = (value) =>{
+        setLikes(likes+value)
+        console.log("current likes == ",likes)
+    }
 
     console.log(poems);
     return(
@@ -33,10 +41,9 @@ const PoemsSection = forwardRef((props, ref) =>{
                     {
                         props.poemData.map((poem)=>(
                             <Grid item xs={12} sm={12} md={6} lg={4} xl={4} style={{minHeight:"150px"}} className=" break-words">
-                                <PoemCard>
-                                    {[poem.title,poem.poem]}
+                                <PoemCard likesCount={handleLikesCount}>
+                                    {[poem.title,poem.poem,poem.likesCount]}
                                 </PoemCard>
-                                {/* poem{ poem} */}
                             </Grid>
                         ))
                     }

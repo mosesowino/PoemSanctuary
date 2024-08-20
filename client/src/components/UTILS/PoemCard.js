@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -13,6 +12,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Backdrop } from '@mui/material';
+import { useState } from 'react';
 
 
 
@@ -29,8 +29,10 @@ const ExpandMore = styled((props) => {
 }));
 
 const PoemCard = (props) => {
-  const [expanded, setExpanded] = React.useState(false);
-  const [favorited, setFavorited] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [favorited, setFavorited] = useState(false);
+  const[likesCount, setLikesCount] = useState(props.children[2])
+  
 
 
   const handleExpandClick = () => {
@@ -38,7 +40,16 @@ const PoemCard = (props) => {
   };
 
   const handleFavoriteClick = () => {
-    setFavorited(!favorited);
+    if(favorited){
+      setFavorited(false);
+      setLikesCount(likesCount-1);
+      console.log(likesCount)
+
+    }else{
+      setFavorited(true)
+      setLikesCount(likesCount+1);
+      console.log(likesCount)
+    }
   }
 
   const readMoreHandler = () =>{
@@ -108,7 +119,7 @@ const PoemCard = (props) => {
       <CardActions disableSpacing className='text-blue-700'>
         <IconButton aria-label="add to favorites" onClick={handleFavoriteClick} className={`${favorited ? 'text-red-500': 'text-blue-700'}`} >
           {favorited? <Favorite/> :<FavoriteBorderOutlined/>}
-          <Typography>332</Typography>
+          <Typography>{likesCount}</Typography>
         </IconButton>
         <IconButton aria-label="share" className='text-blue-700'>
           {/* <ShareIcon /> */}

@@ -44,8 +44,8 @@ const App = () => {
   },[currentPoem])
 
   const handleOnSentToApp = (value) =>{
-    setCurrentPoem(value)
-    setPoem(
+    setCurrentPoem(value)//which we're sending server
+    setPoem(//all available poems to be displayed
       (previous) => [...previous, value]
     );
     console.log(poem)    
@@ -55,6 +55,7 @@ const App = () => {
     const sendPoemToServer = async () =>{
       try{
         currentPoem.author = localStorage.getItem("username");
+        currentPoem.likesCount =  0;
         const response = await axios.post("http://localhost:3001/poems",currentPoem,{
           headers:{
             'Content-Type': 'application/json'

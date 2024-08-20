@@ -80,13 +80,13 @@ app.post('/poems', async (req,res)=>{
 `;
 
 try {
-  const{title, poem} = req.body;
-  const newPoem = {title, poem}
-  console.log("after removing ==",newPoem)
+  const{title, poem, likesCount} = req.body;
+  const newPoem = {title, poem, likesCount}
+  // console.log("after removing ==",newPoem)
   const result = await client.query(insertQuery, [req.body.author, newPoem]);
   res.status(201).json({
     message: 'Data inserted successfully',
-    data: result.rows[0],
+    data: result.rows[0]
   });
 } catch (err) {
   console.error('Error inserting data', err);
