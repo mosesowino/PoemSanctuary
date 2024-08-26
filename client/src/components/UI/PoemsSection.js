@@ -31,8 +31,12 @@ const PoemsSection = forwardRef((props, ref) =>{
         setLikes(likes+value)
         console.log("current likes == ",likes)
     }
+    const handleLikesAction = (value) =>{
+        props.likesAction(value)
+        console.log(value)
+    }
 
-    console.log(poems);
+    console.log(props.poemData);
     return(
         <Grid ref={ref} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3, xl:3 }}  className=" w-screen min-h-screen mx-0 bg-secondary">
             <Grid item xs={11} sm={7} md={8} lg={9} xl={8}  className=" mx-auto mb-2 h-screen overflow-y-scroll">
@@ -41,8 +45,8 @@ const PoemsSection = forwardRef((props, ref) =>{
                     {
                         props.poemData.map((poem)=>(
                             <Grid item xs={12} sm={12} md={6} lg={4} xl={4} style={{minHeight:"150px"}} className=" break-words">
-                                <PoemCard likesCount={handleLikesCount}>
-                                    {[poem.title,poem.poem,poem.likesCount]}
+                                <PoemCard likesCount={handleLikesCount} likesAction={handleLikesAction} poemId={poem.id}>
+                                    {[poem.poemdata.title,poem.poemdata.poem,poem.poemdata.likesCount]}
                                 </PoemCard>
                             </Grid>
                         ))
@@ -55,8 +59,8 @@ const PoemsSection = forwardRef((props, ref) =>{
                 <Typography variant="h5" color="white" className="Block mb-2 text-center font-bold text-black">Leaderboard</Typography>
                 {props.poemData.map((poem) => (
                     <Card className="px-2 py-1 my-3 m-2 rounded-md text-black bg-white flex justify-between">
-                        <Typography variant="p">{poem.title}</Typography>
-                        <HalfRating/>
+                        <Typography variant="p">{poem.poemdata.title}</Typography>
+                        <HalfRating className=" align-middle"/>
                     </Card>
                 ))}
             </Grid>

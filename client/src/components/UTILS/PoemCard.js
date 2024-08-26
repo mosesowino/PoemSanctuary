@@ -40,14 +40,18 @@ const PoemCard = (props) => {
   };
 
   const handleFavoriteClick = () => {
+    let poemId =props.poemId
+    console.log("poem Id ==>",poemId)
+    
     if(favorited){
       setFavorited(false);
       setLikesCount(likesCount-1);
-      console.log(likesCount)
+      props.likesAction({id:poemId,likeAction:-1})
 
     }else{
       setFavorited(true)
       setLikesCount(likesCount+1);
+      props.likesAction({id:poemId,likeAction:+1})
       console.log(likesCount)
     }
   }

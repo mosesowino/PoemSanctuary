@@ -20,20 +20,22 @@ import axios from 'axios';
 const App = () => {
   const[poem, setPoem] = useState([]);
   const[currentPoem, setCurrentPoem] = useState();
+  const[likes, setLikes] = useState();
   
   useEffect(()=>{
     const fetchServerPoems = async() =>{
       try{
-        const result = await axios.get("http://localhost:3001/servePoemData");
+        const result = await axios.get("http://localhost:50000/servePoemData");
         let fetchedPoems = await result.data.results;
         let newArr = []
         console.log(result.data.results)
-        fetchedPoems.map((x)=>{
-          return newArr.push(x.poemdata)
-        })
+        // fetchedPoems.map((x)=>{
+        //   return newArr.push(x.poemdata)
+        // })
         console.log(await newArr);
         setPoem((prev)=>
-          [...prev, ...newArr]
+          // [...prev, ...newArr]
+        [...prev, ...fetchedPoems]
         )
         newArr = [];
       }catch(err){
@@ -44,19 +46,22 @@ const App = () => {
   },[currentPoem])
 
   const handleOnSentToApp = (value) =>{
+    console.log("value ===", value)
     setCurrentPoem(value)//which we're sending server
-    setPoem(//all available poems to be displayed
-      (previous) => [...previous, value]
-    );
-    console.log(poem)    
+    // setPoem(//all available poems to be displayed
+    //   (previous) => [...previous, value]
+    // );
+    console.log("poem ===",poem)  
+    
   }
 
   useEffect(()=>{
     const sendPoemToServer = async () =>{
       try{
+        console.log("current poem === >" , currentPoem)
         currentPoem.author = localStorage.getItem("username");
         currentPoem.likesCount =  0;
-        const response = await axios.post("http://localhost:3001/poems",currentPoem,{
+        const response = await axios.post("http://localhost:50000/poems",currentPoem,{
           headers:{
             'Content-Type': 'application/json'
           }
@@ -69,6 +74,23 @@ const App = () => {
     sendPoemToServer();
   },[currentPoem])
 
+  useEffect(()=>{
+    const updateLikes = async () =>{
+      try{
+        console.log("likes in try ",likes)
+        const response = await axios.post("http://localhost:50000/updateLikes",likes,{
+          headers:{
+            'Content-Type': 'application/json'
+          }
+        }
+        )
+        console.log("Like updation response ", response)
+      }catch(err){
+        console.error("Error updating likes", err)
+      }
+    }
+    updateLikes()
+  },[likes])
 
   const handleLogout = () => {
     localStorage.removeItem('token')
@@ -128,6 +150,13 @@ const App = () => {
     }
   }  
 
+
+  const handleLikesAction = (value) =>{
+    console.log(value);
+    setLikes(value)
+    
+  }
+
   return(
     <BrowserRouter>
       <div className=' min-h-screen w-screen flex flex-col mt-0 contrast-150'>
@@ -138,7 +167,7 @@ const App = () => {
             element={
             <>
               <LandingPage settingsItem={handleSettingsItem} explore={handleExplore} create={handleCreate} menuItemClick={handleMenuItemClick}/>
-              <PoemsPage poemData={poem} ref={exploreRef}/>
+              <PoemsPage poemData={poem} ref={exploreRef} likesAction={handleLikesAction}/>
               <UserInputPage onSentToApp={handleOnSentToApp} ref={createRef}/>
             </>
           } 
