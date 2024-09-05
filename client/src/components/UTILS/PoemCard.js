@@ -6,7 +6,7 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
+import { blue, red } from '@mui/material/colors';
 import { Favorite, FavoriteBorderOutlined } from '@mui/icons-material';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import { Backdrop } from '@mui/material';
@@ -70,12 +70,13 @@ const PoemCard = (props) => {
 
       <Card
         // className='bg-background'
-        className={`bg-transparent border-primary text-white`}
+        className={`bg-secondary border-primary text-white ${expanded?"overflow-y-scroll":''}`}
         sx={{
           border:`1px solid`,
           maxWidth: expanded ? 'auto' : 'auto', //initially 345
           // maxHeight: expanded? '85%' :'auto',
-          maxHeight:'auto',
+          // maxHeight:'95%',
+          maxHeight:expanded?'95%':'auto',
           minWidth: expanded ? 'auto':'fit-content',
           zIndex: expanded ? 30 : 0,
           position: expanded ? 'fixed' : 'relative',
@@ -86,7 +87,7 @@ const PoemCard = (props) => {
           padding: 1,
           paddingX: 0,
           boxShadow: 3,
-          // backgroundColor: '#f0f0f0',
+          backgroundColor: '#f0f0f0',
           transition: 'max-width 0.9s ease-in-out, z-index 0.9s ease-in-out, top 0.9s ease-in-out, left 0.9s ease-in-out, transform 0.9s ease-in-out',
         }}
 
@@ -94,9 +95,9 @@ const PoemCard = (props) => {
       >
 
       <CardHeader
-        className='text-white'
+        className='text-white font-extrabold'
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          <Avatar sx={{ bgcolor: blue[700] }}>
             {props.children[3] ? props.children[3].substr(0,1):''}
           </Avatar>
         }
@@ -137,15 +138,6 @@ const PoemCard = (props) => {
           {/* <ShareIcon /> */}
         </IconButton>
         <Typography variant="p" className='absolute right-4'> ~{props.children[3]}</Typography>
-        {/* <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-          className="text-blue-700"
-        >
-          {expanded ? <CloseFullscreenIcon /> : ''}
-        </ExpandMore> */}
       </CardActions>
 
     </Card>
