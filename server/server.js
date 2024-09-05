@@ -121,12 +121,51 @@ app.post('/', (req, res) => {
   res.status(200).json({ message: 'Data received' });
 });
 
-app.post('/updateLikes',(req,res)=>{
+app.post('/updateLikes',async(req,res)=>{
   // const { id } = req.params;
+  
   console.log(req.body);
-  res.status(200).json({message:'like updated'})
+  let poemId = req.body.id;
+  let likeAction = req.body.likeAction;
+  let fetchPoemById = `
+  SELECT poemdata FROM public.poems
+  where id=($1);
+  `
+  /*PREPARE update_json AS*/
+  const updateLikesById = `
+  UPDATE poems
+  SET poemdata=($1)
+  WHERE id=($2);
+  `
+
+  try{
+    let result = await client.query(fetchPoemById,[poemId])
+    // result = result.rows
+    let poemdata = result.rows[0].poemdata
+    let likesCount = poemdata.likesCount
+
+    if(likeAction === 1){
+      console.log(poemdata)
+      ++likesCount;
+    }else if(likeAction === -1 && likesCount > 0){
+      console.log(poemdata)
+      --likesCount;
+    }else{
+      console.log(likesCount)
+      likesCount = 0;
+    }
+    
+    console.log("poem data type", typeof(poemdata))
+    let res = await client.query(updateLikesById,[poemdata, poemId]);
+    // console.log(res.rows)
+    console.log("updated likes, result =>",likesCount)
+    // res.status(200).json({message:`likes updated for ${poemId}`});
+  }catch(err){
+    console.log("Failed to update likes", err)
+  }
+
 })
 
-app.listen(50000, () => {
-  console.log('Server is running on http://localhost:3001');
+let server = app.listen(50000, () => {
+  console.log('Server is running on localhost, port:',server.address().port);
 });

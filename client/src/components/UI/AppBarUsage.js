@@ -26,6 +26,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const AppBarUsage = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  // const [open, setOpen] = React.useState(false)
 
 
   const[loginClicked, setLoginClicked] = useState(false)
@@ -75,7 +76,7 @@ const AppBarUsage = (props) => {
     <Backdrop
       sx={{zIndex:20, color:'#fff'}}
       open={loginClicked}
-      onClick={handleLoginClicked}
+      // onClick={handleLoginClicked}
     />
 
   

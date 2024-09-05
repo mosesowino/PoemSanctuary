@@ -8,9 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import { Favorite, FavoriteBorderOutlined } from '@mui/icons-material';
-import ShareIcon from '@mui/icons-material/Share';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Backdrop } from '@mui/material';
 import { useState } from 'react';
 
@@ -64,7 +62,7 @@ const PoemCard = (props) => {
     <>
 
       <Backdrop
-          sx={{ zIndex: 20, color: '#fff' }}
+          // sx={{ zIndex: 20, color: 'black' }}
           open={expanded}
           onDoubleClick={handleExpandClick}
       />
@@ -72,10 +70,12 @@ const PoemCard = (props) => {
 
       <Card
         // className='bg-background'
-        className={`bg-red-200`}
+        className={`bg-transparent border-primary text-white`}
         sx={{
+          border:`1px solid`,
           maxWidth: expanded ? 'auto' : 'auto', //initially 345
-          maxHeight: expanded? '85%' :'auto',
+          // maxHeight: expanded? '85%' :'auto',
+          maxHeight:'auto',
           minWidth: expanded ? 'auto':'fit-content',
           zIndex: expanded ? 30 : 0,
           position: expanded ? 'fixed' : 'relative',
@@ -94,23 +94,31 @@ const PoemCard = (props) => {
       >
 
       <CardHeader
+        className='text-white'
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {props.children[3] ? props.children[3].substr(0,1):''}
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings" className='text-blue-700'>
-            {/* <MoreVertIcon /> */}
+          <IconButton aria-label="settings" className='text-blue-700'>            
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+              className="text-blue-700"
+            >
+              {expanded ? <CloseFullscreenIcon /> : ''}
+           </ExpandMore>
           </IconButton>
         }
-        // title="Shrimp and Chorizo Paella"
         title = {`${props.children[0]}`}
         subheader={`${new Date().toISOString().split('T')[0]}`}
       />
 
 
-      <CardContent>
+      <CardContent className='text-center'>
         {/* <Typography variant="body2" className='font-bold leading-6 break-words'> */}
           <pre>
             {(props.children[1].length > 250 && !expanded)?props.children[1].substr(0,249):props.children[1]}
@@ -128,7 +136,8 @@ const PoemCard = (props) => {
         <IconButton aria-label="share" className='text-blue-700'>
           {/* <ShareIcon /> */}
         </IconButton>
-        <ExpandMore
+        <Typography variant="p" className='absolute right-4'> ~{props.children[3]}</Typography>
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
@@ -136,7 +145,7 @@ const PoemCard = (props) => {
           className="text-blue-700"
         >
           {expanded ? <CloseFullscreenIcon /> : ''}
-        </ExpandMore>
+        </ExpandMore> */}
       </CardActions>
 
     </Card>

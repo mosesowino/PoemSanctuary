@@ -32,7 +32,7 @@ const App = () => {
         // fetchedPoems.map((x)=>{
         //   return newArr.push(x.poemdata)
         // })
-        console.log(await newArr);
+        console.log(newArr);
         setPoem((prev)=>
           // [...prev, ...newArr]
         [...prev, ...fetchedPoems]
