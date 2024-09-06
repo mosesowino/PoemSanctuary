@@ -62,7 +62,7 @@ const PoemCard = (props) => {
     <>
 
       <Backdrop
-          // sx={{ zIndex: 20, color: 'black' }}
+          sx={{ zIndex: 20, color: 'black' }}
           open={expanded}
           onDoubleClick={handleExpandClick}
       />

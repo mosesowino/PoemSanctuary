@@ -70,6 +70,17 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.put('/register', async(req, res) => {
+  const registerQuery = 'insert into users (email, username, password) values ($1,$2,$3)'
+  try{
+    const {email,password,username} = req.body;
+    await client.query(registerQuery, [email, username, password]);
+    res.status(200).json({message:"registration successful, Logging in ..."})
+  }catch(registerError){
+    console.log("Error registering: ",registerError)
+    res.status(401).json({message:'registration failed'})
+  }
+})
 
 
 app.post('/poems', async (req,res)=>{
@@ -166,6 +177,6 @@ app.post('/updateLikes',async(req,res)=>{
 
 })
 
-let server = app.listen(50000, () => {
+let server = app.listen(3002, () => {
   console.log('Server is running on localhost, port:',server.address().port);
 });

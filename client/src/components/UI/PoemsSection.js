@@ -1,9 +1,9 @@
-import { Grid, Typography } from "@mui/material"
+import { Grid } from "@mui/material"
 import PoemCard from "../UTILS/PoemCard";
-import Card from "../UTILS/Card";
 import { forwardRef, useEffect, useState } from "react";
 import fetchOpenAiPoems from "../../Services/ApiService";
-import HalfRating from "../UTILS/Rating";
+import { Sort } from "@mui/icons-material";
+
 
 
 const PoemsSection = forwardRef((props, ref) =>{
@@ -40,6 +40,7 @@ const PoemsSection = forwardRef((props, ref) =>{
     props.poemData.map((data)=> console.log("author",data.author))
     return(
         <Grid ref={ref} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3, xl:3 }}  className=" w-screen min-h-screen mx-0 bg-secondary">
+            <Sort className="text-white mt-2 mr-auto"/>
             <Grid item xs={11} sm={12} md={12} lg={12} xl={12}  className=" mx-auto mb-2 h-screen overflow-y-scroll">
                 {/* <Typography variant="h5" color="white" className="text-center font-bold">Poems</Typography> */}
                 <Grid container spacing={2} className=" mt-8 h-fit -z-10 ">
@@ -55,16 +56,6 @@ const PoemsSection = forwardRef((props, ref) =>{
                
                 </Grid>
             </Grid>
-
-            {/* <Grid item xs={11} sm={4} md={3} lg={2} xl={3}  className=" w-auto p-1 mx-auto h-fit mt-8 border-2 border-white">
-                <Typography variant="h5" color="white" className="Block mb-2 text-center font-bold">Leaderboard</Typography>
-                {props.poemData.map((poem) => (
-                    <Card key={poem.id} className="px-2 py-1 my-3 m-2 rounded-md flex justify-between">
-                        <Typography variant="p" color={"white"}>{poem.poemdata.title}</Typography>
-                        <HalfRating className=" align-middle"/>
-                    </Card>
-                ))}
-            </Grid> */}
 
         </Grid>
     )

@@ -25,7 +25,7 @@ const App = () => {
   useEffect(()=>{
     const fetchServerPoems = async() =>{
       try{
-        const result = await axios.get("http://localhost:50000/servePoemData");
+        const result = await axios.get("http://localhost:3002/servePoemData");
         let fetchedPoems = await result.data.results;
         let newArr = []
         console.log(result.data.results)
@@ -61,7 +61,7 @@ const App = () => {
         console.log("current poem === >" , currentPoem)
         currentPoem.author = localStorage.getItem("username");
         currentPoem.likesCount =  0;
-        const response = await axios.post("http://localhost:50000/poems",currentPoem,{
+        const response = await axios.post("http://localhost:3002/poems",currentPoem,{
           headers:{
             'Content-Type': 'application/json'
           }
