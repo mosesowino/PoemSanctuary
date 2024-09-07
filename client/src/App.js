@@ -78,7 +78,7 @@ const App = () => {
     const updateLikes = async () =>{
       try{
         console.log("likes in try ",likes)
-        const response = await axios.post("http://localhost:50000/updateLikes",likes,{
+        const response = await axios.post("http://localhost:3002/updateLikes",likes,{
           headers:{
             'Content-Type': 'application/json'
           }

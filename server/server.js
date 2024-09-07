@@ -91,8 +91,8 @@ app.post('/poems', async (req,res)=>{
 `;
 
 try {
-  const{title, poem, likesCount} = req.body;
-  const newPoem = {title, poem, likesCount}
+  const{title, poem} = req.body;
+  const newPoem = {title, poem}
   // console.log("after removing ==",newPoem)
   const result = await client.query(insertQuery, [req.body.author, newPoem]);
   res.status(201).json({
@@ -139,37 +139,38 @@ app.post('/updateLikes',async(req,res)=>{
   let poemId = req.body.id;
   let likeAction = req.body.likeAction;
   let fetchPoemById = `
-  SELECT poemdata FROM public.poems
+  SELECT likes FROM public.poems
   where id=($1);
   `
   /*PREPARE update_json AS*/
   const updateLikesById = `
   UPDATE poems
-  SET poemdata=($1)
+  SET likes=($1)
   WHERE id=($2);
   `
 
   try{
-    let result = await client.query(fetchPoemById,[poemId])
-    // result = result.rows
-    let poemdata = result.rows[0].poemdata
-    let likesCount = poemdata.likesCount
+    let result = await client.query(fetchPoemById,[poemId]);
+    console.log("Likes result ==",result.rows[0].likes)
+    let likes = result.rows[0].likes;
+
 
     if(likeAction === 1){
-      console.log(poemdata)
-      ++likesCount;
-    }else if(likeAction === -1 && likesCount > 0){
-      console.log(poemdata)
-      --likesCount;
+      // console.log(poemdata)
+      console.log("LikeAction++")
+      ++likes;
+    }else if(likeAction === -1 && likes > 0){
+      // console.log(poemdata)
+      console.log("LikeAction--")
+      --likes;
     }else{
-      console.log(likesCount)
-      likesCount = 0;
+      // console.log(likesCount)
+      likes = 0;
     }
     
-    console.log("poem data type", typeof(poemdata))
-    let res = await client.query(updateLikesById,[poemdata, poemId]);
-    // console.log(res.rows)
-    console.log("updated likes, result =>",likesCount)
+    // console.log("poem data type", typeof(poemdata))
+    let res = await client.query(updateLikesById,[likes, poemId]);
+    console.log("updated likes, result =>",likes)
     // res.status(200).json({message:`likes updated for ${poemId}`});
   }catch(err){
     console.log("Failed to update likes", err)
@@ -177,6 +178,11 @@ app.post('/updateLikes',async(req,res)=>{
 
 })
 
-let server = app.listen(3002, () => {
-  console.log('Server is running on localhost, port:',server.address().port);
-});
+try{
+  let server = app.listen(3002, () => {
+    console.log('Server is running on localhost, port:',server.address().port);
+  });
+
+}catch(err){
+  console.log('error starting server: ',err)
+}
