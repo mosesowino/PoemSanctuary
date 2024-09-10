@@ -21,11 +21,12 @@ const App = () => {
   const[poem, setPoem] = useState([]);
   const[currentPoem, setCurrentPoem] = useState();
   const[likes, setLikes] = useState();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   
   useEffect(()=>{
     const fetchServerPoems = async() =>{
       try{
-        const result = await axios.get("http://localhost:3002/servePoemData");
+        const result = await axios.get(`${backendUrl}/servePoemData`);
         let fetchedPoems = await result.data.results;
         let newArr = []
         console.log(result.data.results)
@@ -61,7 +62,7 @@ const App = () => {
         console.log("current poem === >" , currentPoem)
         currentPoem.author = localStorage.getItem("username");
         currentPoem.likesCount =  0;
-        const response = await axios.post("http://localhost:3002/poems",currentPoem,{
+        const response = await axios.post(`${backendUrl}/poems`,currentPoem,{
           headers:{
             'Content-Type': 'application/json'
           }
@@ -78,7 +79,7 @@ const App = () => {
     const updateLikes = async () =>{
       try{
         console.log("likes in try ",likes)
-        const response = await axios.post("http://localhost:3002/updateLikes",likes,{
+        const response = await axios.post(`${backendUrl}/updateLikes`,likes,{
           headers:{
             'Content-Type': 'application/json'
           }
