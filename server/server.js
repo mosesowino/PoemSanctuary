@@ -19,9 +19,9 @@ const io = new Server(server, {
   cors: corsOptions,
 });
 const secretKey = process.env.SECRET_KEY;
+const connectionString = process.env.DATABASE_URI;
 
-
-const connectionString = 'postgres://psadmin:@1234@localhost:5432/poemsanctuary';
+// const connectionString = 'postgres://psadmin:@1234@localhost:5432/poemsanctuary';
 
 const client = new Client({
   // user: 'psadmin',
