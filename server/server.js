@@ -8,10 +8,11 @@ const http = require('http');
 const {Server} = require('socket.io')
 
 
+const clientorigin = process.env.CLIENT_URI
 const app = express();
 const server = http.createServer(app);
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: clientorigin,
   methods: ["GET", "POST","PUT"],
   optionsSuccessStatus: 200
 };
