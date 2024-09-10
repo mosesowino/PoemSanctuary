@@ -19,12 +19,17 @@ const io = new Server(server, {
   cors: corsOptions,
 });
 const secretKey = process.env.SECRET_KEY;
+
+
+const connectionString = 'postgres://psadmin:@1234@localhost:5432/poemsanctuary';
+
 const client = new Client({
-  user: 'psadmin',
-  host: 'localhost',
-  database: 'poemsanctuary',
-  password: '@1234',
-  port: 5432,
+  // user: 'psadmin',
+  // host: 'localhost',
+  // database: 'poemsanctuary',
+  // password: '@1234',
+  // port: 5432,
+  connectionString: connectionString,
 })
 
 
@@ -38,7 +43,7 @@ app.use(cors(corsOptions));
 client.connect(err => {
   if (err) {
     console.error('Failed to connect to database:', err);
-    process.exit(1);
+    // process.exit(1);
   } else {
     console.log('Connected to the database');
   }
