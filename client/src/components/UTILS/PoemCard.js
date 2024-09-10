@@ -6,12 +6,14 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { blue, red } from '@mui/material/colors';
+import { blue } from '@mui/material/colors';
 import { Favorite, FavoriteBorderOutlined } from '@mui/icons-material';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import { Backdrop } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 
+const socket = io('http://localhost:3002/')
 
 
 
@@ -29,26 +31,32 @@ const ExpandMore = styled((props) => {
 const PoemCard = (props) => {
   const [expanded, setExpanded] = useState(false);
   const [favorited, setFavorited] = useState(false);
-  const[likesCount, setLikesCount] = useState(props.children[2])
+  // const[likesCount, setLikesCount] = useState(props.children[2])
+  const[likesCount, setLikesCount] = useState()
   
+  let poemId = props.poemId;
 
+  useEffect(()=>{
+    socket.on(`liked`,(likes)=>{
+      console.log("likes again==>",likes)
+      setLikesCount(likes)
+    });
+  },[favorited])
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const handleFavoriteClick = () => {
-    let poemId =props.poemId
-    console.log("poem Id ==>",poemId)
-    
+    // let poemId =props.poemId    
     if(favorited){
       setFavorited(false);
-      setLikesCount(likesCount-1);
+      // setLikesCount(likesCount-1);
       props.likesAction({id:poemId,likeAction:-1})
 
     }else{
       setFavorited(true)
-      setLikesCount(likesCount+1);
+      // setLikesCount(likesCount+1);
       props.likesAction({id:poemId,likeAction:+1})
       console.log(likesCount)
     }
@@ -121,7 +129,6 @@ const PoemCard = (props) => {
 
       <CardContent className='text-center'>
         {/* <Typography variant="body2" className='font-bold leading-6 break-words'> */}
-        {console.log("props children[1] ==",props.children)}
           <pre>
             {
               (props.children[1] != null)?<>
