@@ -6,9 +6,13 @@ const {Client} = require('pg');
 const express = require('express');
 const http = require('http');
 const {Server} = require('socket.io')
+const path = require('path')
 
 
 const clientorigin = process.env.CLIENT_URI
+const secretKey = process.env.SECRET_KEY;
+const connectionString = process.env.DATABASE_URI;
+
 const app = express();
 const server = http.createServer(app);
 const corsOptions = {
@@ -19,8 +23,6 @@ const corsOptions = {
 const io = new Server(server, {
   cors: corsOptions,
 });
-const secretKey = process.env.SECRET_KEY;
-const connectionString = process.env.DATABASE_URI;
 
 // const connectionString = 'postgres://psadmin:@1234@localhost:5432/poemsanctuary';
 
@@ -39,7 +41,7 @@ app.use(express.json());
 
 
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 client.connect(err => {
   if (err) {
@@ -50,6 +52,10 @@ client.connect(err => {
   }
 });
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;

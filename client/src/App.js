@@ -4,9 +4,6 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-// import legend from '../assets/images/legend.png'
-// import legend from './assets/images/legend.png'
-
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PoemsPage from './pages/PoemsPage';
@@ -17,11 +14,13 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+
 const App = () => {
   const[poem, setPoem] = useState([]);
   const[currentPoem, setCurrentPoem] = useState();
   const[likes, setLikes] = useState();
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   
   useEffect(()=>{
     const fetchServerPoems = async() =>{
