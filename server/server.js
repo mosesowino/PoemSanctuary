@@ -226,8 +226,9 @@ io.on('connection', (socket)=>{
 })
 
 try{
-  let serverInstance = server.listen(3002, () => {
-    console.log(`Server is running on ${serverInstance.address().address}, port:,${serverInstance.address().port}`);
+  const port = process.env.PORT
+  let serverInstance = server.listen(port, () => {
+    console.log(`Server is running on ${serverInstance.address().address} port:,${serverInstance.address().port}`);
   });
 
 }catch(err){
