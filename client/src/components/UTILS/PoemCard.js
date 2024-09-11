@@ -13,7 +13,7 @@ import { Backdrop } from '@mui/material';
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3002/')
+// const socket = io('http://localhost:3002/')
 
 
 
@@ -36,12 +36,12 @@ const PoemCard = (props) => {
   
   let poemId = props.poemId;
 
-  useEffect(()=>{
-    socket.on(`liked`,(likes)=>{
-      console.log("likes again==>",likes)
-      setLikesCount(likes)
-    });
-  },[favorited])
+  // useEffect(()=>{
+  //   socket.on(`liked`,(likes)=>{
+  //     console.log("likes again==>",likes)
+  //     setLikesCount(likes)
+  //   });
+  // },[favorited])
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
