@@ -20,10 +20,10 @@ const LoginCard = (props) =>{
         e.preventDefault();
         try {
           if(username){
-            const signUpResponse = await axios.put('http://localhost:3002/register',{email,password,username})
+            const signUpResponse = await axios.put('/register',{email,password,username})
             console.log(signUpResponse.data.message)
           }
-          const response = await axios.post('http://localhost:3002/login', { email, password });
+          const response = await axios.post('/login', { email, password });
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('username', response.data.username);
           props.loginStatus(true)
