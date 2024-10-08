@@ -6,6 +6,7 @@ import { Box, Button } from '@mui/material'
 import Card from '../UTILS/Card'
 import { forwardRef, useEffect, useState } from 'react'
 import { ArrowForward } from '@mui/icons-material'
+import '../../App.css'
 
 // const dataApi = 'http://localhost:3001/'
 
@@ -60,21 +61,27 @@ const LegendSection = forwardRef((props,ref) => {
 if(error)<div>Error-----{error.message}</div>
 
     return(
-        <Box ref={ref} className=" min-h-screen w-screen relative flex justify-center bg-primary z-10 -mt-20">
-                <Card className= 'h-auto w-auto absolute left-0 bottom-0 leading-relaxed p-1'>
+        <Box ref={ref} className=" min-h-screen w-screen relative flex justify-center bg-gradient-to-b from-blue-500 to-black z-10" id='legendImage'>
+                {/* <Card className= 'h-auto w-auto absolute left-0 bottom-0 leading-relaxed p-1 top-10 right-10'>
                     <Typography variant="h5"  className=' font-bold text-secondary text-5xl'>
                         Inspiring<br/> Minds<br/> One Poem<br/> At<br/> A <br/>Time
+                        Inspiring Minds<br/> One Poem<br/> At A Time
                     </Typography>
-                </Card>
+                </Card> */}
 
-                <div className=' flex self-center'>
-                    <Button variant="outlined" className='mx-1 ' onClick={handleCreateClick}>
+                <div className=' flex self-center flex-col space-y-5 h-auto w-auto absolute left-0 bottom-0 leading-relaxed p-1 top-10 right-10'>
+                    <Typography variant="h5"  className=' font-bold text-5xl block text-white'>
+                        Inspiring Minds<br/> One Poem<br/> At A Time
+                    </Typography>
+                    <div className='flex-row'>
+                    <Button variant="contained" className='mx-1 text-white contrast-200' onClick={handleCreateClick}>
                         Create
                         <ArrowForward/>
                     </Button>
                     <Button variant="contained" className='mx-1' onClick={handleExploreClick}>
                         Explore
                     </Button>
+                    </div>
                 </div>
         </Box>
     )

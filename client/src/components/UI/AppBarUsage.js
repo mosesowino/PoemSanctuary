@@ -91,11 +91,11 @@ const AppBarUsage = (props) => {
       // onClick={handleLoginClicked}
       />
       <HideOnScroll>
-        <AppBar position="sticky" className='bg-transparent text-black'>
+        <AppBar position="sticky" className='bg-black text-black'>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Typography
-                className='logo'
+                className='logo text-blue-500'
                 variant="h6"
                 noWrap
                 component="a"
@@ -105,7 +105,7 @@ const AppBarUsage = (props) => {
                   fontFamily: 'monospace',
                   fontWeight: 700,
                   // letterSpacing: '.1rem',
-                  color: 'black',
+                  // color: 'black',
                   textDecoration: 'none',
                   mixBlendMode: 'difference',
                 }}
@@ -144,13 +144,14 @@ const AppBarUsage = (props) => {
                 >
                   {pages.map((page) => (
                     <MenuItem key={page} onClick={handleCloseNavMenu}>                  
-                      <Typography textAlign="center" onClick={handleMenuItemClick}>{page}</Typography>
+                      <Typography textAlign="center" onClick={handleMenuItemClick} className='text-blue-500'>{page}</Typography>
                     </MenuItem>
                   ))}
                 </Menu>
               </Box>
 
               <Typography
+                className='text-blue-500'
                 variant="h5"
                 noWrap
                 component="a"
@@ -161,7 +162,7 @@ const AppBarUsage = (props) => {
                   flexGrow: 1,
                   fontFamily: 'monospace',
                   fontWeight: 700,
-                  color: 'inherit',
+                  // color: 'inherit',
                   textDecoration: 'none',
                 }}
               >
@@ -174,7 +175,7 @@ const AppBarUsage = (props) => {
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: 'black', display: 'block' }}
                   >
-                    <Typography textAlign="center" onClick={handleMenuItemClick}>{page}</Typography>
+                    <Typography textAlign="center" onClick={handleMenuItemClick} className='text-blue-500'>{page}</Typography>
                   </Button>
                 ))}
               </Box>

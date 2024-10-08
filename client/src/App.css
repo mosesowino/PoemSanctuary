@@ -1,7 +1,23 @@
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
 html {
     @apply scroll-smooth;
+}
+
+#legendImage{
+    background: url('../public/images/legend.png');
+    background-repeat: no-repeat;
+    background-size: auto 100vh;
+    background-position: right top;
+    background-blend-mode:darken;
+}
+
+
+@media (min-width: 1440px) {
+    #legendImage {
+        background-size: cover;
+    }
 }

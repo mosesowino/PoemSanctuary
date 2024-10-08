@@ -47,7 +47,7 @@ const LoginCard = (props) =>{
     return(
       <>
       {loginIsVisible &&
-        <Card className=' w-max px-12 mx-auto self-center fixed bottom-1/2 z-30 backdrop-blur-md bg-black/10'>
+        <Card className=' w-max px-12 mx-auto self-center fixed top-16 right-4 z-30 backdrop-blur-md bg-black/10'>
             <Cancel className="absolute right-1 top-1 text-red-600" onClick={handleCancelClick}/>
           <form onSubmit={handleLogin}>
           <div className=' my-4'>

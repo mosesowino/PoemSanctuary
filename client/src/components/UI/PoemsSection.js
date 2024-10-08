@@ -3,6 +3,7 @@ import PoemCard from "../UTILS/PoemCard";
 import { forwardRef, useEffect, useState } from "react";
 import fetchOpenAiPoems from "../../Services/ApiService";
 import { Sort } from "@mui/icons-material";
+import {Typography} from "@mui/material";
 
 
 
@@ -39,10 +40,11 @@ const PoemsSection = forwardRef((props, ref) =>{
     console.log(props.poemData);
     props.poemData.map((data)=> console.log("author",data.author))
     return(
-        <Grid ref={ref} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3, xl:3 }}  className=" w-screen min-h-screen mx-0 bg-secondary">
+        <Grid ref={ref} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3, xl:3 }}  className=" w-screen min-h-screen mx-0 bg-secondary bg-gradient-to-b from-black to-blue-500">
             <Sort className="text-white mt-2 mr-auto"/>
             <Grid item xs={11} sm={12} md={12} lg={12} xl={12}  className=" mx-auto mb-2 h-screen overflow-y-scroll">
-                {/* <Typography variant="h5" color="white" className="text-center font-bold">Poems</Typography> */}
+                <Typography variant="h5" className="text-center font-bold text-blue-500">Poems</Typography>
+                <hr className=" w-1/2 mx-auto"/>
                 <Grid container spacing={2} className=" mt-8 h-fit -z-10 ">
                     {
                         props.poemData.map((poem)=>(
