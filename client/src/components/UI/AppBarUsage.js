@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -37,17 +36,11 @@ const AppBarUsage = (props) => {
     );
   }
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  // const [open, setOpen] = React.useState(false)
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [authCardVisible, setAuthCardVisible] = useState(false)
 
 
-  const[loginClicked, setLoginClicked] = useState(false)
-
-  const handleLoginClicked = () =>{
-    setLoginClicked(!loginClicked);
-  }
-  
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -77,9 +70,14 @@ const AppBarUsage = (props) => {
   }
 
 
+  const handleLoginClick = () =>{
+    setAuthCardVisible(!authCardVisible)
+    // console.log('clicked')
+  }
+
   const handleLoginStatus = (value) =>{
     if(value){
-      setLoginClicked(!loginClicked)
+      setAuthCardVisible(false)
     }
   }
 
@@ -87,8 +85,8 @@ const AppBarUsage = (props) => {
     <>
      <Backdrop
       sx={{zIndex:20, color:'#fff'}}
-      open={loginClicked}
-      // onClick={handleLoginClicked}
+      open={authCardVisible}
+      // onClick={handleLoginClick}
       />
       <HideOnScroll>
         <AppBar position="sticky" className='bg-black text-black'>
@@ -213,7 +211,7 @@ const AppBarUsage = (props) => {
                   </Menu>
                 </>:
                 <>
-                <Button variant="outlined" onClick={handleLoginClicked}>
+                <Button variant="outlined" onClick={handleLoginClick}>
                   <Typography variant="p" className=' contrast-200'>sign in</Typography>
                 </Button>
                 </>
@@ -225,7 +223,7 @@ const AppBarUsage = (props) => {
           </Container>
         </AppBar>
       </HideOnScroll>
-    {loginClicked? <LoginCard loginStatus={handleLoginStatus}/>:''}
+    {authCardVisible? <LoginCard isLoggedIn={handleLoginStatus}/>:''}
     </>
   );
 }

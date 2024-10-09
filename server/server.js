@@ -66,7 +66,7 @@ app.post('/login', async (req, res) => {
   try {
       // Check if user exists
       const query = 'SELECT * FROM users WHERE email = ?';
-      const [results] = await connection.query(query, [email]);
+      const [results] = connection.query(query, [email]);
 
       if (results.length === 0) {
           return res.status(401).json({ message: 'Invalid email or password' });

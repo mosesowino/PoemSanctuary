@@ -19,20 +19,25 @@ const LoginCard = (props) =>{
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-          if(username){
+          if(username.length>0){
             const signUpResponse = await axios.put('/register',{email,password,username})
             console.log(signUpResponse.data.message)
+            props.isLoggedIn(true)
+          }else{
+            const response = await axios.post('/login', { email, password });
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('username', response.data.username);
+            props.isLoggedIn(true)
           }
-          const response = await axios.post('/login', { email, password });
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('username', response.data.username);
-          props.loginStatus(true)
-          setEmail('');
-          setPassword('');
         } catch (error) {
           console.error('Login failed:', error);
         }
       };
+
+
+      setEmail('');
+      setPassword('');
+
 
       const handleCancelClick = () =>{
         console.log("cancelled!!!")
@@ -51,7 +56,6 @@ const LoginCard = (props) =>{
             <Cancel className="absolute right-1 top-1 text-red-600" onClick={handleCancelClick}/>
           <form onSubmit={handleLogin}>
           <div className=' my-4'>
-              {/* <label className='block'>Email:</label> */}
               <input
               className='border-none outline-none shadow-inner p-2 rounded-md mr-2'
               placeholder='enter email'
@@ -63,7 +67,6 @@ const LoginCard = (props) =>{
           {!login?
            <>
             <div className="mb-4">
-            {/* <label className='block'>username:</label> */}
                 <input
                 className='border-none outline-none p-2 rounded-md mr-2'
                 placeholder='username'
@@ -75,7 +78,6 @@ const LoginCard = (props) =>{
            </>:''
           }
           <div className=' mb-4'>
-              {/* <label className='block'>Password:</label> */}
               <input
               className='border-none outline-none p-2 rounded-md mr-2'
               placeholder='enter password'
@@ -88,7 +90,6 @@ const LoginCard = (props) =>{
           <>
 
             <div className=' mb-4'>
-                {/* <label className='block'>Password:</label> */}
                 <input
                 className='border-none outline-none p-2 rounded-md mr-2'
                 placeholder='confirm password'
