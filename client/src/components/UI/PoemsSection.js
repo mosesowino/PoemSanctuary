@@ -40,7 +40,7 @@ const PoemsSection = forwardRef((props, ref) =>{
     console.log(props.poemData);
     props.poemData.map((data)=> console.log("author",data.author))
     return(
-        <Grid ref={ref} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3, xl:3 }}  className=" w-screen min-h-screen mx-0 bg-secondary bg-gradient-to-b from-black to-blue-500">
+        <Grid ref={ref} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3, xl:3 }}  className=" w-screen min-h-screen mx-0 bg-gradient-to-r from-black via-black to-blue-950">
             <Sort className="text-white mt-2 mr-auto"/>
             <Grid item xs={11} sm={12} md={12} lg={12} xl={12}  className=" mx-auto mb-2 h-screen overflow-y-scroll">
                 <Typography variant="h5" className="text-center font-bold text-blue-500">Poems</Typography>

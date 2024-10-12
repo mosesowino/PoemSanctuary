@@ -2,6 +2,18 @@ import { Typography } from '@mui/material';
 import TextInput from '../UTILS/TextInput';
 import { forwardRef } from 'react';
 
+
+const Svgimage = () =>{
+return<>
+<svg width="800px" height="800px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg" className=' w-1/2 h-auto'>
+    <path id="path1" d="M429.9 186.7v406.4h407.5c-4 34.1-12.8 67.3-26.2 99.1-18.4 43.6-44.8 82.7-78.5 116.3-33.6 33.6-72.8 60-116.4 78.4-45.1 19.1-93 28.7-142.5 28.7-49.4 0-97.4-9.7-142.5-28.7-43.6-18.4-82.7-44.8-116.4-78.4-33.6-33.6-60-72.7-78.4-116.3-19.1-45.1-28.7-93-28.7-142.4s9.7-97.3 28.7-142.4c18.4-43.6 44.8-82.7 78.4-116.3 33.6-33.6 72.8-60 116.4-78.4 31.7-13.2 64.7-21.9 98.6-26m44-46.6c-226.4 0-410 183.5-410 409.8s183.6 409.8 410 409.8 410-183.5 410-409.8v-0.8h-410v-409z" fill="#39393A" />
+    
+    <path d="M566.1 80.5c43.7 1.7 86.4 10.6 127 26.4 44 17.1 84.2 41.8 119.6 73.5 71.7 64.1 117.4 151.7 128.7 246.7 1.2 9.9 2 20 2.4 30.2H566.1V80.5m-16-16.3v409h410c0-16.3-1-32.3-2.9-48.1C933.1 221.9 760 64.2 550.1 64.2zM264.7 770.4c-23.1-23.1-42.3-49.1-57.3-77.7l-14.7 6.5c35.7 68.2 94 122.7 165 153.5l4.3-15.6c-36.3-16-69.1-38.4-97.3-66.7z" fill="#E73B37"/>
+</svg>
+</>
+
+}
+
 const MediaInput = forwardRef((props,ref) =>{
     const handleOnSubmitPoem = (value) =>{
         props.onSentToInputPage(value)
@@ -10,15 +22,18 @@ const MediaInput = forwardRef((props,ref) =>{
 
 
     return(
-        <div ref={ref} className=' min-h-screen w-screen bg-gradient-to-t from-black via-black to-blue-500 grid-cols-1 md:grid-cols-1 sm:grid-cols-1'>
+        <div ref={ref} className=' min-h-screen w-screen bg-gradient-to-r from-black via-black to-blue-950 grid grid-cols-1 md:grid-cols-2 sm:grid-cols-1'>
             <div className='ml-4 text-white font-extrabold text-6xl '>
                 {/* <div className='mr-0'> */}
-                 <img src='/images/write.png' alt='write' className='mr-0 sm:w-full h-auto md:w-auto'/>
+                 {/* <img src='/images/pie-chart-svgrepo-com.svg' alt='write' className='mr-0 sm:w-full h-auto md:w-1/4'/> */}
+                 
+                 
                 {/* </div> */}
                 <h2 className='text-blue-500'>Write</h2>
                 <h2>and</h2>
                 <h2 className=' text-blue-500'>share</h2>
                 <h2>your poems</h2>
+                <Svgimage/>
                 {/* <Typography variant='h1'>Write Your Own Poem and Share</Typography> */}
             </div>
             <div>

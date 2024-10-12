@@ -72,7 +72,7 @@ const AppBarUsage = (props) => {
 
   const handleLoginClick = () =>{
     setAuthCardVisible(!authCardVisible)
-    // console.log('clicked')
+    console.log('clicked')
   }
 
   const handleLoginStatus = (value) =>{
@@ -212,7 +212,7 @@ const AppBarUsage = (props) => {
                 </>:
                 <>
                 <Button variant="outlined" onClick={handleLoginClick}>
-                  <Typography variant="p" className=' contrast-200'>sign in</Typography>
+                  <Typography className=' contrast-200'>sign in</Typography>
                 </Button>
                 </>
             
