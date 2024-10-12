@@ -76,9 +76,9 @@ const AppBarUsage = (props) => {
   }
 
   const handleLoginStatus = (value) =>{
-    if(value){
+    // if(value){
       setAuthCardVisible(false)
-    }
+    // }
   }
 
   return (
@@ -223,7 +223,7 @@ const AppBarUsage = (props) => {
           </Container>
         </AppBar>
       </HideOnScroll>
-    {authCardVisible? <LoginCard isLoggedIn={handleLoginStatus}/>:''}
+    {authCardVisible? <LoginCard isLoggedIn={handleLoginStatus} blurr={handleLoginStatus}/>:''}
     </>
   );
 }

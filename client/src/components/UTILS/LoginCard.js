@@ -38,15 +38,17 @@ const LoginCard = (props) => {
   const handleCancelClick = () => {
     console.log("cancelled!!!");
     setLoginIsVisible(false);
+    props.blurr(false)
   };
 
   const handleSignUpClick = () => {
     setlogin(!login);
   };
+  
 
   return (
     <>
-      {loginIsVisible && (
+      {loginIsVisible ? (
         <Card className='w-max px-12 mx-auto self-center fixed top-16 right-4 z-30 backdrop-blur-md bg-black/10'>
           <Cancel className="absolute right-1 top-1 text-red-600" onClick={handleCancelClick} />
           <form onSubmit={handleLogin}>
@@ -101,7 +103,7 @@ const LoginCard = (props) => {
             </Typography>
           </form>
         </Card>
-      )}
+      ):''}
     </>
   );
 };
