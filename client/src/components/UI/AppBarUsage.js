@@ -89,9 +89,9 @@ const AppBarUsage = (props) => {
       // onClick={handleLoginClick}
       />
       <HideOnScroll>
-        <AppBar position="sticky" className='bg-black text-black'>
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
+        <AppBar position="sticky" className='bg-black text-black contrast-200'>
+          <Container className='w-screen'>
+            <Toolbar disableGutters className='ml-0'>
               <Typography
                 className='logo text-blue-500'
                 variant="h6"
@@ -100,12 +100,11 @@ const AppBarUsage = (props) => {
                 sx={{
                   mr: 2,
                   display: { xs: 'none', md: 'flex' },
-                  fontFamily: 'monospace',
+                  fontFamily: 'cursive',
                   fontWeight: 700,
                   // letterSpacing: '.1rem',
                   // color: 'black',
                   textDecoration: 'none',
-                  mixBlendMode: 'difference',
                 }}
               >
                 PoemSanctuary
@@ -119,6 +118,7 @@ const AppBarUsage = (props) => {
                   aria-haspopup="true"
                   onClick={handleOpenNavMenu}
                   color="inherit"
+                  className='text-white'
                 >
                   <MenuIcon />
                 </IconButton>
@@ -141,7 +141,7 @@ const AppBarUsage = (props) => {
                   }}
                 >
                   {pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>                  
+                    <MenuItem key={page} onClick={handleCloseNavMenu} className='hover:underline'>                  
                       <Typography textAlign="center" onClick={handleMenuItemClick} className='text-blue-500'>{page}</Typography>
                     </MenuItem>
                   ))}
@@ -149,7 +149,7 @@ const AppBarUsage = (props) => {
               </Box>
 
               <Typography
-                className='text-blue-500'
+                className='text-white'
                 variant="h5"
                 noWrap
                 component="a"
@@ -158,7 +158,7 @@ const AppBarUsage = (props) => {
                   mr: 2,
                   display: { xs: 'flex', md: 'none' },
                   flexGrow: 1,
-                  fontFamily: 'monospace',
+                  fontFamily: 'cursive',
                   fontWeight: 700,
                   // color: 'inherit',
                   textDecoration: 'none',
@@ -211,9 +211,13 @@ const AppBarUsage = (props) => {
                   </Menu>
                 </>:
                 <>
-                <Button variant="outlined" onClick={handleLoginClick}>
-                  <Typography className=' contrast-200'>sign in</Typography>
+                {
+                  authCardVisible?''
+                  :
+                <Button variant="contained" className='text-white sm:text-xs sm:mr-0' onClick={handleLoginClick}>
+                  <p className='sm:text-xs sm:font-thin md:text-sm sm:leading-none'>login</p>
                 </Button>
+                }
                 </>
             
 

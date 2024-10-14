@@ -69,7 +69,7 @@ const TextInput = (props) => {
 
   return (
     // <Textarea aria-label="minimum height" minRows={3} placeholder="Minimum 3 rows"/>
-    <Card sx={{maxWidth: 345, margin:'auto'}}>
+    <Card sx={{maxWidth: 345, marginY:'auto', marginBottom:30}}>
       <input
         type='text'
         placeholder='poem title(optional)'

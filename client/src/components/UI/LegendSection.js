@@ -61,7 +61,7 @@ const LegendSection = forwardRef((props,ref) => {
 if(error)<div>Error-----{error.message}</div>
 
     return(
-        <Box ref={ref} className=" min-h-screen w-screen relative flex justify-center bg-gradient-to-r from-black via-black to-blue-950 z-10" id='legendImage'>
+        <Box ref={ref} className=" min-h-screen w-screen relative flex justify-center z-10" id='legendImage'>
                 {/* <Card className= 'h-auto w-auto absolute left-0 bottom-0 leading-relaxed p-1 top-10 right-10'>
                     <Typography variant="h5"  className=' font-bold text-secondary text-5xl'>
                         Inspiring<br/> Minds<br/> One Poem<br/> At<br/> A <br/>Time
@@ -74,12 +74,12 @@ if(error)<div>Error-----{error.message}</div>
                         Inspiring Minds<br/> One Poem<br/> At A Time
                     </Typography>
                     <div className='flex-row'>
-                    <Button variant="contained" className='mx-1 text-white contrast-200' onClick={handleCreateClick}>
-                        Create
-                        <ArrowForward/>
-                    </Button>
                     <Button variant="contained" className='mx-1' onClick={handleExploreClick}>
                         Explore
+                    </Button>
+                    <Button variant="outlined" className='mx-1 text-white' onClick={handleCreateClick}>
+                        Create
+                        <ArrowForward/>
                     </Button>
                     </div>
                 </div>

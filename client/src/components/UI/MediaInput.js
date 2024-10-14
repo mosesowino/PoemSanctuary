@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material';
 import TextInput from '../UTILS/TextInput';
 import { forwardRef } from 'react';
+import { Share, Create } from '@mui/icons-material';
 
 
 const Svgimage = () =>{
@@ -22,22 +22,17 @@ const MediaInput = forwardRef((props,ref) =>{
 
 
     return(
-        <div ref={ref} className=' min-h-screen w-screen bg-gradient-to-r from-black via-black to-blue-950 grid grid-cols-1 md:grid-cols-2 sm:grid-cols-1'>
-            <div className='ml-4 text-white font-extrabold text-6xl '>
-                {/* <div className='mr-0'> */}
-                 {/* <img src='/images/pie-chart-svgrepo-com.svg' alt='write' className='mr-0 sm:w-full h-auto md:w-1/4'/> */}
-                 
-                 
-                {/* </div> */}
-                <h2 className='text-blue-500'>Write</h2>
-                <h2>and</h2>
-                <h2 className=' text-blue-500'>share</h2>
-                <h2>your poems</h2>
-                <Svgimage/>
-                {/* <Typography variant='h1'>Write Your Own Poem and Share</Typography> */}
+        <div ref={ref} className='min-h-screen w-screen grid grid-cols-1 md:grid-cols-2 sm:grid-cols-1 space-y-5'>
+            <div className='ml-4 text-white font-extra-bold text-5xl flex justify-center my-auto'>
+                <div className='w-fit h-fit'>
+                    <h2 className='text-blue-500'>Write<Create/></h2>
+                    <h2>and</h2>
+                    <h2 className=' text-blue-500'>share<Share/></h2>
+                    <h2>your poems</h2>
+                </div>
             </div>
             <div>
-                <Typography variant='h5' className=' text-center my-4'> create </Typography>
+                {/* <Typography variant='h5' className=' text-center my-4'> create </Typography> */}
                 <TextInput onSubmitPoem={handleOnSubmitPoem}/>
             </div>
         </div>

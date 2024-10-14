@@ -78,14 +78,14 @@ const PoemCard = (props) => {
 
       <Card
         // className='bg-background'
-        className={`bg-secondary border-primary text-white ${expanded?"overflow-y-scroll":''}`}
+        className={`bg-secondary border-primary text-white sm:w-screen ${expanded?"overflow-y-scroll":''}`}
         sx={{
           border:`1px solid`,
-          maxWidth: expanded ? 'auto' : 'auto', //initially 345
+          // maxWidth: expanded ? 'auto' : 'auto', //initially 345
           // maxHeight: expanded? '85%' :'auto',
           // maxHeight:'95%',
           maxHeight:expanded?'95%':'auto',
-          minWidth: expanded ? 'auto':'fit-content',
+          minWidth: expanded ? 'screen':'',
           zIndex: expanded ? 30 : 0,
           position: expanded ? 'fixed' : 'relative',
           top: expanded ? '65%' : 'auto',
@@ -127,9 +127,9 @@ const PoemCard = (props) => {
       />
 
 
-      <CardContent className='text-center'>
+      <CardContent className=' break-words'>
         {/* <Typography variant="body2" className='font-bold leading-6 break-words'> */}
-          <pre>
+          <p>
             {
               (props.children[1] != null)?<>
               {(props.children[1].length > 250 && !expanded)?props.children[1].substr(0,249):props.children[1]}
@@ -137,7 +137,7 @@ const PoemCard = (props) => {
               </>
               :''
             }
-          </pre>
+          </p>
         {/* </Typography> */}
       </CardContent>
 
