@@ -2,7 +2,7 @@ import { Grid } from "@mui/material"
 import PoemCard from "../UTILS/PoemCard";
 import { forwardRef, useEffect, useState } from "react";
 import fetchOpenAiPoems from "../../Services/ApiService";
-import { Sort } from "@mui/icons-material";
+// import { Sort } from "@mui/icons-material";
 import {Typography} from "@mui/material";
 
 
@@ -47,7 +47,7 @@ const PoemsSection = forwardRef((props, ref) =>{
                 <Grid container spacing={2} className=" mt-8 h-fit -z-10 ">
                     {
                         props.poemData.map((poem)=>(
-                            <Grid item xs={12} sm={12} md={6} lg={4} xl={4} style={{minHeight:"150px"}} className=" break-words">
+                            <Grid item xs={12} sm={12} md={6} lg={4} xl={4} style={{minHeight:"150px"}}>
                                 <PoemCard likesCount={handleLikesCount} likesAction={handleLikesAction} poemId={poem.id}>
                                     {[poem.title,poem.poem,poem.likesCount, poem.author]}
                                 </PoemCard>

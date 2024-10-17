@@ -78,19 +78,19 @@ const PoemCard = (props) => {
 
       <Card
         // className='bg-background'
-        className={`bg-secondary border-primary text-white sm:w-screen ${expanded?"overflow-y-scroll":''}`}
+        className={`bg-secondary border-white text-white sm:w-screen ${expanded?"overflow-y-scroll":''}`}
         sx={{
           border:`1px solid`,
           // maxWidth: expanded ? 'auto' : 'auto', //initially 345
           // maxHeight: expanded? '85%' :'auto',
           // maxHeight:'95%',
           maxHeight:expanded?'95%':'auto',
-          minWidth: expanded ? 'screen':'',
+          minWidth: expanded ? '98%':'',
           zIndex: expanded ? 30 : 0,
           position: expanded ? 'fixed' : 'relative',
-          top: expanded ? '65%' : 'auto',
+          top: expanded ? '50%' : 'auto',
           left: expanded ? '50%' : 'auto',
-          transform: expanded ? 'translate(-50%, -65%)' : 'none',
+          transform: expanded ? 'translate(-50%, -50%)' : 'none',
           marginX: 'auto',
           padding: 1,
           paddingX: 0,

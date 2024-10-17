@@ -6,12 +6,12 @@ const express = require('express');
 const http = require('http');
 const {Server} = require('socket.io')
 const path = require('path')
-const mysql = require('mysql2')
+const mysql = require('mysql')
 
 
 const clientorigin = process.env.CLIENT_URI
 const secretKey = process.env.SECRET_KEY;
-const connectionString = process.env.DATABASE_URI;
+const connectionString = process.env.LOCALHOST_MYSQL_URI;
 
 const app = express();
 const server = http.createServer(app);
@@ -24,12 +24,13 @@ const io = new Server(server, {
   cors: corsOptions,
 });
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root', 
-  // password: 'your_password', 
-  database: 'poemsanctuary' 
-});
+// const connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root', 
+//   // password: 'your_password', 
+//   database: 'poemsanctuary' 
+// });
+const connection = mysql.createConnection(connectionString)
 
 connection.connect((err) => {
   if (err) {
@@ -46,46 +47,41 @@ app.use(express.json());
 
 // app.use(cors(corsOptions));
 
-connection.connect(err => {
-  if (err) {
-    console.error('Failed to connect to database:', err);
-    // process.exit(1);
-  } else {
-    console.log('Connected to the database');
-  }
-});
-
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.post('/login', async (req, res) => {
+app.post('/login', async(req, res) => {
   const { email, password } = req.body;
-
+  
   try {
       // Check if user exists
       const query = 'SELECT * FROM users WHERE email = ?';
-      const [results] = connection.query(query, [email]);
+      await connection.query(query, [email], (err, results)=>{
+        if(err)throw err;
+        
+        if (results.length === 0) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
 
-      if (results.length === 0) {
-          return res.status(401).json({ message: 'Invalid email or password' });
-      }
+        // console.log("user result ==", results)
+        const user = results[0];
+        console.log("user ==>", user)
 
-      const user = results[0];
+        // Verify password
+        const validPassword = (password === user.password);
+  
+        if (!validPassword) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+        
 
-      // Verify password
-      const validPassword = await bcrypt.compare(password, user.password);
+        // Create JWT token
+        const token = jwt.sign({ email: user.email }, secretKey, { expiresIn: '1h' });
+        return res.status(200).json({ token, username: user.username });
 
-      if (!validPassword) {
-          return res.status(401).json({ message: 'Invalid email or password' });
-      }
-
-      // Create JWT token
-      const token = jwt.sign({ email: user.email }, secretKey, { expiresIn: '1h' });
-
-      return res.status(200).json({ token, username: user.username });
-  } catch (error) {
+      }); } catch (error) {
       console.error('Error logging in:', error);
       return res.status(500).json({ message: 'Internal server error' });
   }
@@ -96,9 +92,9 @@ app.put('/register', async (req, res) => {
   const registerQuery = 'INSERT INTO users (email, username, password) VALUES (?, ?, ?)';
   try {
       const { email, password, username } = req.body;
-      const hashedPassword = await bcrypt.hash(password, saltRounds); // Hash the password
+      // const hashedPassword = await bcrypt.hash(password, saltRounds); // Hash the password
 
-      await connection.execute(registerQuery, [email, username, hashedPassword]); // Store the hashed password
+      await connection.execute(registerQuery, [email, username, password]); // Store the hashed password
 
       res.status(200).json({ message: "Registration successful, Logging in ..." });
   } catch (registerError) {
@@ -111,25 +107,25 @@ app.put('/register', async (req, res) => {
 
 app.post('/poems', async (req, res) => {
   const insertQuery = `
-      INSERT INTO poems (author, poemdata)
-      VALUES (?, ?)
+      INSERT INTO poems (author,title, poem,likescount)
+      VALUES (?, ?,?,?)
   `;
 
   try {
-      const { title, poem } = req.body;
-      const newPoem = { title, poem }; // Create an object for the new poem
-      const poemData = JSON.stringify(newPoem); // Convert the poem object to JSON string
+    console.log("new poem =>",req.body)
+      const { title, poem, author, likesCount } = req.body;
+      // const newPoem = { title, poem }; // Create an object for the new poem
+      // const poemData = JSON.stringify(newPoem); // Convert the poem object to JSON string
 
       // Execute the insert query
-      const [result] = await connection.execute(insertQuery, [req.body.author, poemData]);
+      const [result] = await connection.query(insertQuery, [author, title, poem, likesCount]);
 
       res.status(201).json({
           message: 'Data inserted successfully',
-          data: {
-              id: result.insertId, // Get the ID of the newly inserted row
-              author: req.body.author,
-              poemdata: newPoem
-          }
+          // data: {
+          //     id: result.insertId, // Get the ID of the newly inserted row
+          //     author: req.body.author
+          // }
       });
   } catch (err) {
       console.error('Error inserting data', err);
@@ -141,9 +137,11 @@ app.get("/servePoemData", async (req, res) => {
   const getPoemsRecordsQuery = 'SELECT * FROM poems';
 
   try {
-      const [results] = await connection.query(getPoemsRecordsQuery); // Use connection.query to fetch results
-      console.log("Fetched poems: ", results); // Log the fetched results
-      res.status(200).json({ results }); // Use 200 for successful responses
+      connection.query(getPoemsRecordsQuery, (err, results)=>{
+        console.log("Fetched poems: ", results[0]); // Log the fetched results
+        res.status(200).json({results}); // Use 200 for successful responses
+        
+      }); // Use connection.query to fetch results
   } catch (err) {
       console.error("Error fetching from database: ", err);
       res.status(500).json({ error: 'Failed to fetch data' }); // Send an error response
@@ -151,12 +149,6 @@ app.get("/servePoemData", async (req, res) => {
 });
 
 
-
-
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello from root' });
-  console.log("Hello root");
-});
 
 app.post('/', (req, res) => {
   console.log(req.body);

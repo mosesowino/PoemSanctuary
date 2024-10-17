@@ -73,14 +73,14 @@ const TextInput = (props) => {
       <input
         type='text'
         placeholder='poem title(optional)'
-        className=' outline-none border-none focus:outline-none focus:border-none my-3'
+        className=' outline-none border-none focus:outline-none focus:border-none my-3 text-center'
         value={titleValue}
         onChange={titleChangeHandler}
         
       />
       <hr/>
       <CardContent>
-        <textarea rows={20} cols={30} placeholder='create Poem' className=' border-none outline-none focus:border-none focus:outline-none' value={poemValue} onChange={textAreaChangeHandler}/>
+        <textarea rows={20} cols={30} placeholder='create Poem' className=' border-none outline-none focus:border-none focus:outline-none text-black' value={poemValue} onChange={textAreaChangeHandler}/>
       </CardContent>
       <hr/>
       <CardActions disableSpacing className='text-blue-700'>
