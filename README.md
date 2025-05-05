@@ -1,5 +1,3 @@
-To create a `README.md` file, we typically include sections such as an introduction to the project, installation/setup instructions, usage details, contribution guidelines, and more. Here's an example `README.md` template tailored to your repository, **PoemSanctuary**:
-
 ---
 
 # PoemSanctuary
