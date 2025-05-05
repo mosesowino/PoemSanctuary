@@ -1,5 +1,3 @@
----
-
 # PoemSanctuary
 
 **PoemSanctuary** is a platform dedicated to sharing and discovering beautiful poetry. Built with JavaScript, HTML, and CSS, it provides a seamless and visually appealing experience for poetry lovers.
